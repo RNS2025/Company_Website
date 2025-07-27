@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+    {
+        title: 'Projekt Alpha',
+        description: 'En avanceret webapplikation til dataanalyse, bygget med de nyeste teknologier for at sikre performance og skalerbarhed.',
+        tags: ['Web App', 'Analyse', 'React']
+    },
+    {
+        title: 'Mobil-Platform Beta',
+        description: 'En cross-platform mobil-app, der forbinder brugere i et socialt netværk. Fokuserer på intuitivt design og realtids-interaktion.',
+        tags: ['iOS', 'Android', 'Flutter']
+    },
+    {
+        title: 'Internt Værktøj Gamma',
+        description: 'Et skræddersyet CRM-system udviklet til at optimere en klients interne arbejdsprocesser og forbedre kundehåndtering.',
+        tags: ['CRM', 'Desktop', 'SaaS']
+    }
+]
+---
+<Layout title="Projekter">
+	<section class="container mx-auto px-6 py-20">
+		<div class="text-center mb-12">
+			<h1 class="text-5xl font-extrabold tracking-tighter">Vores Arbejde</h1>
+			<p class="text-slate-400 mt-2 max-w-2xl mx-auto">Et udpluk af de løsninger, vi har udviklet. Hvert projekt er en historie om et problem, der er blevet løst med teknologi.</p>
+		</div>
+
+		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+			{projects.map(project => (
+				<div class="bg-slate-800/50 rounded-lg p-6 flex flex-col">
+					<h3 class="text-2xl font-bold text-white mb-2">{project.title}</h3>
+					<p class="text-slate-400 flex-grow">{project.description}</p>
+                    <div class="mt-4">
+                        {project.tags.map(tag => (
+                            <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{tag}</span>
+                        ))}
+                    </div>
+				</div>
+			))}
+		</div>
+	</section>
+</Layout>
