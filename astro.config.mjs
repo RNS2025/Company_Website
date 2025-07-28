@@ -4,6 +4,7 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   site: 'https://rns2025.github.io',
   base: '/Company_Website/',
+  trailingSlash: 'always',
 
   integrations: [tailwind()]
 });
