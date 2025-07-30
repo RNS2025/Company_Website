@@ -1,6 +1,10 @@
-import { defineConfig } from "astro/config";
+import { defineConfig } from 'astro/config';
 import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
-  integrations: [tailwind()],
+  site: 'https://rns2025.github.io',
+  base: '/Company_Website/',
+  trailingSlash: 'always',
+
+  integrations: [tailwind()]
 });
