@@ -1,13 +1,15 @@
 ---
+const BASE_URL = import.meta.env.BASE_URL || '/Company_Website/';
 const links = [
-	{ href: '/Company_Website/', text: 'Forside' },
-	{ href: '/Company_Website/projekter/', text: 'Projekter' },
-	{ href: '/Company_Website/om-os/', text: 'Om Os' },
+    { href: `${BASE_URL}`, text: 'Forside' },
+    { href: `${BASE_URL}projekter/`, text: 'Projekter' },
+    { href: `${BASE_URL}om-os/`, text: 'Om Os' },
+    { href: `${BASE_URL}kontakt/`, text: 'Kontakt' }
 ];
 ---
 <header class="bg-slate-900/80 backdrop-blur-sm sticky top-0 z-40 w-full border-b border-slate-800">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="/" class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 text-transparent bg-clip-text">
+        <a href={BASE_URL} class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 text-transparent bg-clip-text">
             Luu & Jens
         </a>
         <nav class="hidden md:flex space-x-6">
