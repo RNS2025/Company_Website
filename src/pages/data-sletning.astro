@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Anmodning om datasletning">
+	<section class="container mx-auto px-6 py-20">
+		<div class="text-center mb-12">
+			<h1 class="text-5xl font-extrabold tracking-tighter">
+				Anmodning om datasletning
+			</h1>
+			<p class="text-slate-400 mt-2 max-w-2xl mx-auto">
+				Her kan du anmode om sletning af din konto og tilknyttede data.
+			</p>
+		</div>
+
+		<div class="max-w-2xl mx-auto bg-slate-800/50 rounded-lg p-8 text-slate-200">
+			<h2 class="text-2xl font-bold text-white mb-4">Sådan anmoder du om sletning</h2>
+			<p class="mb-4">
+				For at anmode om sletning af din konto og dine personlige data, bedes du sende en e-mail til den angivne adresse. Dette link vil automatisk udfylde emnefeltet.
+			</p>
+			<div class="text-center">
+				<a
+					href="mailto:olsen7351@gmail.com?subject=Anmodning%20om%20sletning%20af%20brugerdata"
+					class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full transition-colors"
+				>
+					Send anmodning via e-mail
+				</a>
+			</div>
+			<div class="mt-8">
+				<h3 class="text-xl font-semibold text-white mb-2">
+					Vigtig information om sletning af data
+				</h3>
+				<ul class="list-disc list-inside space-y-2 text-slate-400">
+					<li>
+						Din anmodning skal tydeligt referere til dit brugernavn eller din e-mailadresse, som er tilknyttet din konto.
+					</li>
+					<li>
+						Følgende data slettes: (Angiv specifikke datatyper, f.eks. brugerprofil, aktivitetslog, indlæg, etc.)
+					</li>
+					<li>
+						Visse data, som f.eks. transaktionshistorik, kan blive opbevaret i en yderligere periode af juridiske eller bogføringsmæssige årsager.
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+</Layout>
