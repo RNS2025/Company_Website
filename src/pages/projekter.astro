@@ -4,10 +4,22 @@ import smashLogo from '../assets/logos/smash.png';
 
 const projects = [
     {
-        title: 'Smash Padelcenter',
-        description: 'En klub-app udviklet til Smash Padelcenter i Horsens. Webappen gør det nemt for medlemmer at administrere deres klubaktiviteter, booke baner, se ledige tider og håndtere deres bookinger. Systemet inkluderer også betaling af ting i centeret med integration til Stripe og Flatpay, og er bygget som en moderne MERN-stack løsning med fokus på brugervenlighed og performance.',
-        tags: ['Web App', 'MongoDB', 'React', 'Node.js', 'Stripe', 'Flatpay'],
+        title: 'SMASH Padelcenter - Klub-app',
+        description: 'En klub-app udviklet til SMASH Padelcenter i Horsens. Web-appen gør det nemt for medlemmer at administrere deres klubaktiviteter, se ledige tider, og engagere sig digitalt i klubbens fællesskab. Systemet inkluderer også betaling af ting i centeret med integration til Stripe og Flatpay, og er bygget som en moderne MERN-stack løsning med fokus på brugervenlighed og performance.',
+        tags: ['PWA', 'MongoDB', 'React', 'Node.js', 'Stripe', 'Flatpay'],
         link: "www.smash.rns-apps.dk"
+    },
+    {
+        title: 'SMASH Padelcenter - Betalingssystem',
+        description: 'En skræddersyet PWA, der fungerer som det digitale selvbetjeningssystem ' +
+            'på en fastmonteret iPad i SMASH Padelcenter Stensballe. Her kan gæster hurtigt starte en ' +
+            'personlig regning ved blot at indtaste deres telefonnummer, tilføje varer fra centret og enten betale' +
+            ' med det samme via et SMS-link eller starte en åben regning og betale senere. Systemet ' +
+            'sender daglige SMS-påmindelser til kunder med udestående regninger og integrerer direkte med vores betalingsflow. ' +
+            'Resultatet er en moderne, intuitiv og fuldautomatisk løsning, der både gør købsoplevelsen nem for gæsterne, ' +
+            'og effektiv for centeret.',
+        tags: ['PWA', 'MongoDB', 'React', 'Node.js', 'Stripe', 'Flatpay'],
+        link: "www.pos.rns-apps.dk"
     }
 ]
 ---
@@ -30,9 +42,9 @@ const projects = [
                     </div>
                     <div class="mt-6 flex justify-between items-center">
                     <a href={`https://${project.link}`} target="_blank" rel="noopener noreferrer" class="inline-block bg-[#FF6941] text-white px-4 py-2 rounded hover:bg-[#F2865F] transition">
-                        Check vores projekt ud
+                        Tjek vores projekt ud
                     </a>
-                        <img src={smashLogo.src} alt="Smash Padelcenter Logo" class="h-10 sm:h-16">
+                        <img src={smashLogo.src} alt="SMASH Padelcenter Logo" class="h-10 sm:h-16">
                 </div>
                 </div>
             ))}
