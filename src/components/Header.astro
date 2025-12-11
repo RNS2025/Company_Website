@@ -2,7 +2,7 @@
 
 const BASE_URL = import.meta.env.BASE_URL || '/';
 const links = [
-    { href: `${BASE_URL}forside/`, text: 'Forside' },
+    { href: `${BASE_URL}`, text: 'Forside' },
     { href: `${BASE_URL}projekter/`, text: 'Projekter' },
     { href: `${BASE_URL}om-os/`, text: 'Om Os' },
     { href: `${BASE_URL}kontakt/`, text: 'Kontakt' }
@@ -24,10 +24,10 @@ const links = [
             <svg class="w-6 h-6" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden bg-slate-900">
+    <div id="mobile-menu" class="hidden md:hidden bg-[#FF6941]">
         <nav class="flex flex-col items-center space-y-4 py-4">
             {links.map(link => (
-                <a href={link.href} class="hover:text-[#FF6941] transition-colors">
+                <a href={link.href} class="hover:text-[#2A2A2A] transition-colors">
                     {link.text}
                 </a>
             ))}
