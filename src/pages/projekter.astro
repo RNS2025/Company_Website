@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import smashLogo from '../assets/logos/smash.png';
 
 const projects = [
     {
@@ -19,18 +20,19 @@ const projects = [
 
         <div class="grid md:grid-cols-1 lg:grid-cols-1 gap-8 max-w-2xl mx-auto">
             {projects.map(project => (
-                <div class="bg-slate-800/50 rounded-lg p-6 flex flex-col">
+                <div class="bg-[#3b3b3b] rounded-lg p-6 flex flex-col">
                     <h3 class="text-2xl font-bold text-white mb-2">{project.title}</h3>
                     <p class="text-slate-400 flex-grow">{project.description}</p>
                     <div class="mt-4">
                         {project.tags.map(tag => (
-                            <span class="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{tag}</span>
+                            <span class="inline-block bg-[#314245] text-[#FF6941] text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{tag}</span>
                         ))}
                     </div>
-                    <div class="mt-6">
-                    <a href={`https://${project.link}`} target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
+                    <div class="mt-6 flex justify-between items-center">
+                    <a href={`https://${project.link}`} target="_blank" rel="noopener noreferrer" class="inline-block bg-[#FF6941] text-white px-4 py-2 rounded hover:bg-[#F2865F] transition">
                         Check vores projekt ud
                     </a>
+                        <img src={smashLogo.src} alt="Smash Padelcenter Logo" class="h-16">
                 </div>
                 </div>
             ))}
