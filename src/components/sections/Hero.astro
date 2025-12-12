@@ -1,28 +1,16 @@
 ---
 import Button from '../ui/Button.astro';
 import GradientText from '../ui/GradientText.astro';
-import { Code2, Smartphone, Database, Layers, Eye, MessageCircle, ChevronDown } from 'lucide-astro';
+import VideoBackground from '../ui/VideoBackground.astro';
+import { Eye, MessageCircle, ChevronDown } from 'lucide-astro';
 ---
 
 <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-    <!-- Background gradient -->
-    <div class="absolute inset-0 bg-gradient-to-br from-dark via-dark to-dark-lighter -z-10"></div>
-
-    <!-- Floating tech icons (subtle background) -->
-    <div class="absolute inset-0 -z-10 opacity-10">
-        <div class="absolute top-20 left-10 animate-float">
-            <Code2 size={60} />
-        </div>
-        <div class="absolute top-40 right-20 animate-float" style="animation-delay: 0.5s;">
-            <Smartphone size={50} />
-        </div>
-        <div class="absolute bottom-40 left-1/4 animate-float" style="animation-delay: 1s;">
-            <Database size={55} />
-        </div>
-        <div class="absolute bottom-20 right-1/3 animate-float" style="animation-delay: 1.5s;">
-            <Layers size={45} />
-        </div>
-    </div>
+    <!-- Video Background -->
+    <VideoBackground
+        src="/videos/tech-background.mp4"
+        overlay="medium"
+    />
 
     <div class="container mx-auto px-6 text-center">
         <div class="max-w-4xl mx-auto">

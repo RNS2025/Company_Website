@@ -1,18 +1,31 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import VideoBackground from "../components/ui/VideoBackground.astro";
+import FadeIn from "../components/animations/FadeIn.astro";
 ---
 
 <Layout title="Om Os">
-  <section class="container mx-auto px-6 py-20">
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-extrabold tracking-tighter">
-        To Partnere. Én Passion.
-      </h1>
-      <p class="text-slate-400 mt-2 max-w-2xl mx-auto">
-        Vi er Luu og Jens. Vores partnerskab er bygget på en fælles passion for
-        at skabe simpel, elegant og funktionel software.
-      </p>
+  <!-- Hero Section with Video Background -->
+  <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
+    <VideoBackground
+      src="/videos/tech-background.mp4"
+      overlay="medium"
+    />
+
+    <div class="relative z-10 container mx-auto px-6 text-center">
+      <FadeIn>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4">
+          To Partnere. <span class="bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-transparent bg-clip-text">Én Passion.</span>
+        </h1>
+        <p class="text-xl text-slate-300 mt-2 max-w-2xl mx-auto">
+          Vi er Luu og Jens. Vores partnerskab er bygget på en fælles passion for
+          at skabe simpel, elegant og funktionel software.
+        </p>
+      </FadeIn>
     </div>
+  </section>
+
+  <section class="container mx-auto px-6 py-20">
 
     <div class="grid md:grid-cols-2 gap-12 items-center max-w-4xl mx-auto">
       <div class="text-center md:text-left">

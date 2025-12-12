@@ -1,0 +1,55 @@
+---
+interface Props {
+    src: string;
+    poster?: string;
+    overlay?: 'light' | 'medium' | 'heavy';
+    class?: string;
+}
+
+const {
+    src,
+    poster,
+    overlay = 'medium',
+    class: className = ''
+} = Astro.props;
+
+const overlayOpacity = {
+    light: 'bg-dark/60',
+    medium: 'bg-dark/75',
+    heavy: 'bg-dark/85'
+};
+---
+
+<div class={`video-background absolute inset-0 -z-10 overflow-hidden ${className}`}>
+    <!-- Video element -->
+    <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster={poster}
+        class="absolute w-full h-full object-cover"
+    >
+        <source src={src} type="video/mp4" />
+    </video>
+
+    <!-- Overlay for better text readability -->
+    <div class={`absolute inset-0 ${overlayOpacity[overlay]}`}></div>
+
+    <!-- Gradient overlay for smooth edges -->
+    <div class="absolute inset-0 bg-gradient-to-b from-dark/50 via-transparent to-dark"></div>
+</div>
+
+<style>
+    .video-background video {
+        filter: brightness(0.8) saturate(1.1);
+    }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+        .video-background video {
+            display: none;
+        }
+    }
+</style>

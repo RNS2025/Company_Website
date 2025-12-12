@@ -3,30 +3,30 @@ import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/project/ProjectCard.astro';
 import Section from '../components/ui/Section.astro';
 import FadeIn from '../components/animations/FadeIn.astro';
-import ParallaxSection from '../components/animations/ParallaxSection.astro';
+import VideoBackground from '../components/ui/VideoBackground.astro';
 import { projects } from '../data/projects';
 ---
 
 <Layout title="Projekter - RNS APPS">
-	<!-- Hero Section -->
-	<ParallaxSection speed={0.3}>
-		<div class="relative min-h-[50vh] flex items-center justify-center">
-			<!-- Background gradient -->
-			<div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 via-primary-600/20 to-primary-700/20"></div>
+	<!-- Hero Section with Video Background -->
+	<section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
+		<VideoBackground
+			src="/videos/tech-background.mp4"
+			overlay="medium"
+		/>
 
-			<div class="relative z-10 container mx-auto px-4 text-center">
-				<FadeIn>
-					<h1 class="text-5xl md:text-7xl font-bold mb-6">
-						Vores <span class="bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-transparent bg-clip-text">Arbejde</span>
-					</h1>
-					<p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-						Vi er stolte af det arbejde, vi leverer, og hvordan det løser reelle problemer for vores klienter.
-						Se nogle af vores seneste projekter nedenfor.
-					</p>
-				</FadeIn>
-			</div>
+		<div class="relative z-10 container mx-auto px-4 text-center">
+			<FadeIn>
+				<h1 class="text-5xl md:text-7xl font-bold mb-6">
+					Vores <span class="bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-transparent bg-clip-text">Arbejde</span>
+				</h1>
+				<p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+					Vi er stolte af det arbejde, vi leverer, og hvordan det løser reelle problemer for vores klienter.
+					Se nogle af vores seneste projekter nedenfor.
+				</p>
+			</FadeIn>
 		</div>
-	</ParallaxSection>
+	</section>
 
 	<!-- Projects Grid -->
 	<Section>
