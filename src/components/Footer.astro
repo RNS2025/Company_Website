@@ -1,219 +1,219 @@
 ---
-import { Linkedin, Mail, ArrowUp } from 'lucide-astro';
+import { Linkedin, Mail, ArrowUp } from "lucide-astro";
 
 const year = new Date().getFullYear();
-const BASE_URL = import.meta.env.BASE_URL || '/';
+const BASE_URL = import.meta.env.BASE_URL || "/";
 ---
 
 <footer class="glass-footer mt-20 relative overflow-hidden">
-    <!-- Subtle gradient accent -->
-    <div class="absolute inset-0 bg-gradient-to-t from-primary-500/5 via-transparent to-transparent pointer-events-none"></div>
+  <!-- Subtle gradient accent -->
+  <div
+    class="absolute inset-0 bg-gradient-to-t from-primary-500/5 via-transparent to-transparent pointer-events-none"
+  >
+  </div>
 
-    <div class="container mx-auto px-6 py-12 relative z-10">
-        <!-- Three Column Layout -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
-            <!-- Column 1: About -->
-            <div>
-                <div class="flex items-center gap-3 mb-4">
-                    <img src="/logo.png" alt="RNS APPS" class="h-10 w-10" />
-                    <h3 class="text-xl font-bold text-white">RNS APPS</h3>
-                </div>
-                <p class="text-slate-400 mb-6">
-                    Professionel softwareudvikling. Vi skaber skræddersyede webløsninger, mobile apps og systemer der gør en forskel.
-                </p>
-                <div class="flex space-x-3">
-                    <!-- LinkedIn Links -->
-                    <a
-                        href="https://www.linkedin.com/in/luu-ninh-669851307/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-link"
-                        aria-label="Luu Ninh på LinkedIn"
-                    >
-                        <Linkedin size={20} />
-                    </a>
-                    <a
-                        href="https://www.linkedin.com/in/jens-olsen-19b2aa222/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-link"
-                        aria-label="Jens Olsen på LinkedIn"
-                    >
-                        <Linkedin size={20} />
-                    </a>
-                </div>
-            </div>
+  <div class="container mx-auto px-6 py-12 relative z-10">
+    <!-- Three Column Layout -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+      <!-- Column 1: About -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <img src="/logo.png" alt="RNS APPS" class="h-10 w-10" />
+          <h3 class="text-xl font-bold text-white">RNS APPS</h3>
+        </div>
+        <p class="text-slate-400 mb-6">
+          Professionel softwareudvikling. Vi skaber skræddersyede webløsninger,
+          mobile apps og systemer der gør en forskel.
+        </p>
+        <div class="flex space-x-3">
+          <!-- LinkedIn Links -->
+          <a
+            href="https://www.linkedin.com/in/luu-ninh-669851307/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+            aria-label="Luu Ninh på LinkedIn"
+          >
+            <Linkedin size={20} />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/jens-olsen-19b2aa222/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+            aria-label="Jens Olsen på LinkedIn"
+          >
+            <Linkedin size={20} />
+          </a>
+        </div>
+      </div>
 
-            <!-- Column 2: Quick Links -->
-            <div>
-                <h3 class="text-xl font-bold text-white mb-4">Links</h3>
-                <ul class="space-y-3">
-                    <li>
-                        <a href={BASE_URL} class="footer-link">
-                            Forside
-                        </a>
-                    </li>
-                    <li>
-                        <a href={`${BASE_URL}projekter/`} class="footer-link">
-                            Projekter
-                        </a>
-                    </li>
-                    <li>
-                        <a href={`${BASE_URL}om-os/`} class="footer-link">
-                            Om Os
-                        </a>
-                    </li>
-                    <li>
-                        <a href={`${BASE_URL}kontakt/`} class="footer-link">
-                            Kontakt
-                        </a>
-                    </li>
-                </ul>
-            </div>
+      <!-- Column 2: Quick Links -->
+      <div>
+        <h3 class="text-xl font-bold text-white mb-4">Links</h3>
+        <ul class="space-y-3">
+          <li>
+            <a href={BASE_URL} class="footer-link"> Forside </a>
+          </li>
+          <li>
+            <a href={`${BASE_URL}projekter/`} class="footer-link">
+              Projekter
+            </a>
+          </li>
+          <li>
+            <a href={`${BASE_URL}om-os/`} class="footer-link"> Om Os </a>
+          </li>
+          <li>
+            <a href={`${BASE_URL}kontakt/`} class="footer-link"> Kontakt </a>
+          </li>
+        </ul>
+      </div>
 
-            <!-- Column 3: Connect -->
-            <div>
-                <h3 class="text-xl font-bold text-white mb-4">Kontakt</h3>
-                <ul class="space-y-3 text-slate-400">
-                    <li>
-                        <a
-                            href="mailto:luu@rnsapps.dk"
-                            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-primary-500/20 hover:text-primary-500 transition-all duration-300"
-                        >
-                            <Mail size={18} />
-                            luu@rnsapps.dk
-                        </a>
-                    </li>
-                    <li class="mt-6 pt-4 border-t border-white/10">
-                        <p class="text-sm mb-3 text-slate-500 uppercase tracking-wider">Legal</p>
-                        <div class="flex flex-col space-y-2">
-                            <a
+      <!-- Column 3: Connect -->
+      <div>
+        <h3 class="text-xl font-bold text-white mb-4">Kontakt</h3>
+        <ul class="space-y-3 text-slate-400">
+          <li>
+            <a
+              href="mailto:luu@rnsapps.dk"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-primary-500/20 hover:text-primary-500 transition-all duration-300"
+            >
+              <Mail size={18} />
+              luu@rnsapps.dk
+            </a>
+          </li>
+          <li class="mt-6 pt-4 border-t border-white/10">
+            <p class="text-sm mb-3 text-slate-500 uppercase tracking-wider">
+              Legal
+            </p>
+            <div class="flex flex-col space-y-2">
+              <!-- <a
                                 href={`${BASE_URL}data-sletning/`}
                                 class="footer-link text-sm"
                             >
                                 Datasletning
-                            </a>
-                            <a
-                                href={`${BASE_URL}privatlivsvilkår/`}
-                                class="footer-link text-sm"
-                            >
-                                Privatlivsvilkår
-                            </a>
-                        </div>
-                    </li>
-                </ul>
+                            </a> -->
+              <a
+                href={`${BASE_URL}privatlivsvilkår/`}
+                class="footer-link text-sm"
+              >
+                Privatlivsvilkår
+              </a>
             </div>
-        </div>
-
-        <!-- Divider -->
-        <div class="border-t border-white/10 pt-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <!-- Copyright -->
-                <p class="text-slate-500 text-sm">
-                    &copy; {year} RNS APPS. Alle rettigheder forbeholdes.
-                </p>
-
-                <!-- Back to Top Button -->
-                <button
-                    id="back-to-top"
-                    class="back-to-top-btn mt-4 md:mt-0"
-                    aria-label="Tilbage til toppen"
-                >
-                    <span class="text-sm">Tilbage til toppen</span>
-                    <ArrowUp size={18} class="arrow-icon" />
-                </button>
-            </div>
-        </div>
+          </li>
+        </ul>
+      </div>
     </div>
+
+    <!-- Divider -->
+    <div class="border-t border-white/10 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-slate-500 text-sm">
+          &copy; {year} RNS APPS. Alle rettigheder forbeholdes.
+        </p>
+
+        <!-- Back to Top Button -->
+        <button
+          id="back-to-top"
+          class="back-to-top-btn mt-4 md:mt-0"
+          aria-label="Tilbage til toppen"
+        >
+          <span class="text-sm">Tilbage til toppen</span>
+          <ArrowUp size={18} class="arrow-icon" />
+        </button>
+      </div>
+    </div>
+  </div>
 </footer>
 
 <style>
-    .glass-footer {
-        background: rgba(42, 42, 42, 0.7);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-top: 1px solid rgba(255, 105, 65, 0.3);
-        box-shadow:
-            0 -4px 30px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
+  .glass-footer {
+    background: rgba(42, 42, 42, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 105, 65, 0.3);
+    box-shadow:
+      0 -4px 30px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
 
-    .social-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.05);
-        color: #94a3b8;
-        transition: all 0.3s ease;
-    }
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    transition: all 0.3s ease;
+  }
 
-    .social-link:hover {
-        background: rgba(255, 105, 65, 0.2);
-        color: #FF6941;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(255, 105, 65, 0.3);
-    }
+  .social-link:hover {
+    background: rgba(255, 105, 65, 0.2);
+    color: #ff6941;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 105, 65, 0.3);
+  }
 
-    .footer-link {
-        color: #94a3b8;
-        transition: all 0.3s ease;
-        position: relative;
-        display: inline-block;
-    }
+  .footer-link {
+    color: #94a3b8;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+  }
 
-    .footer-link::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(90deg, #FF6941, #F2865F);
-        transition: width 0.3s ease;
-    }
+  .footer-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #ff6941, #f2865f);
+    transition: width 0.3s ease;
+  }
 
-    .footer-link:hover {
-        color: #FF6941;
-    }
+  .footer-link:hover {
+    color: #ff6941;
+  }
 
-    .footer-link:hover::after {
-        width: 100%;
-    }
+  .footer-link:hover::after {
+    width: 100%;
+  }
 
-    .back-to-top-btn {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        border-radius: 9999px;
-        background: rgba(255, 255, 255, 0.05);
-        color: #94a3b8;
-        transition: all 0.3s ease;
-    }
+  .back-to-top-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    transition: all 0.3s ease;
+  }
 
-    .back-to-top-btn:hover {
-        background: rgba(255, 105, 65, 0.2);
-        color: #FF6941;
-    }
+  .back-to-top-btn:hover {
+    background: rgba(255, 105, 65, 0.2);
+    color: #ff6941;
+  }
 
-    .back-to-top-btn:hover .arrow-icon {
-        transform: translateY(-3px);
-    }
+  .back-to-top-btn:hover .arrow-icon {
+    transform: translateY(-3px);
+  }
 
-    .arrow-icon {
-        transition: transform 0.3s ease;
-    }
+  .arrow-icon {
+    transition: transform 0.3s ease;
+  }
 </style>
 
 <script>
-    // Back to top smooth scroll
-    document.getElementById('back-to-top')?.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+  // Back to top smooth scroll
+  document.getElementById("back-to-top")?.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
     });
+  });
 </script>
