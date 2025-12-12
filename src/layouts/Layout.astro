@@ -2,7 +2,7 @@
 import { ViewTransitions } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import '@fontsource/saira';
+import '@fontsource/saira/400.css';
 
 interface Props {
     title: string;
@@ -100,8 +100,11 @@ const organizationSchema = {
         </script>
         -->
 
-        <!-- View Transitions -->
-        <ViewTransitions />
+        <!-- Preload critical fonts -->
+        <link rel="preload" href="/logo.png" as="image" />
+
+        <!-- View Transitions with faster swap -->
+        <ViewTransitions fallback="swap" />
     </head>
     <body class="bg-[#2A2A2A] text-[#EAE9E9]">
         <Header />

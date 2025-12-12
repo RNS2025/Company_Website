@@ -8,51 +8,61 @@ const {
     speed = 0.5,
     class: className = ''
 } = Astro.props;
-
-const id = `parallax-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <div
-    id={id}
     class={`parallax-section ${className}`}
+    data-animate="parallax"
     data-speed={speed}
 >
     <slot />
 </div>
 
 <script>
-    // Simple parallax effect using scroll event
-    const parallaxElements = document.querySelectorAll('.parallax-section');
+    function initParallax() {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
 
-    function handleScroll() {
-        parallaxElements.forEach((element) => {
-            const speed = parseFloat(element.getAttribute('data-speed') || '0.5');
-            const rect = element.getBoundingClientRect();
+        const parallaxElements = document.querySelectorAll('[data-animate="parallax"]');
+        if (!parallaxElements.length) return;
+
+        let lastScrollY = 0;
+        let ticking = false;
+
+        function handleScroll() {
             const scrolled = window.pageYOffset;
-            const rate = scrolled * speed;
-
-            // Only apply parallax when element is in view
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                (element as HTMLElement).style.transform = `translateY(${rate}px)`;
+            if (Math.abs(scrolled - lastScrollY) < 5) {
+                ticking = false;
+                return;
             }
-        });
+            lastScrollY = scrolled;
+
+            parallaxElements.forEach((element) => {
+                const speed = parseFloat(element.getAttribute('data-speed') || '0.5');
+                const rect = element.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const rate = scrolled * speed;
+                    (element as HTMLElement).style.transform = `translate3d(0, ${rate}px, 0)`;
+                }
+            });
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(handleScroll);
+                ticking = true;
+            }
+        }, { passive: true });
     }
 
-    // Use requestAnimationFrame for better performance
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                handleScroll();
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
+    initParallax();
+    document.addEventListener('astro:after-swap', initParallax);
 </script>
 
 <style>
     .parallax-section {
         will-change: transform;
+        contain: layout style;
     }
 </style>

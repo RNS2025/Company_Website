@@ -10,46 +10,55 @@ const {
     duration = 0.6,
     class: className = ''
 } = Astro.props;
-
-const id = `fade-in-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <div
-    id={id}
     class={`fade-in-wrapper ${className}`}
+    data-animate="fade"
     style={`opacity: 0; transition-delay: ${delay}s; transition-duration: ${duration}s;`}
 >
     <slot />
 </div>
 
-<script define:vars={{ id }}>
-    // Intersection Observer for scroll-triggered fade-in
-    const element = document.getElementById(id);
+<script>
+    // Single shared observer for all fade-in elements
+    function initFadeAnimations() {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const elements = document.querySelectorAll('[data-animate="fade"]');
 
-    if (element) {
+        if (prefersReducedMotion) {
+            elements.forEach(el => {
+                (el as HTMLElement).style.opacity = '1';
+                (el as HTMLElement).style.transform = 'none';
+            });
+            return;
+        }
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        (entry.target as HTMLElement).style.opacity = '1';
+                        (entry.target as HTMLElement).style.transform = 'translateY(0)';
                         observer.unobserve(entry.target);
                     }
                 });
             },
-            {
-                threshold: 0.1,
-                rootMargin: '0px 0px -100px 0px'
-            }
+            { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
         );
 
-        observer.observe(element);
+        elements.forEach(el => observer.observe(el));
     }
+
+    // Run on initial load and after View Transitions
+    initFadeAnimations();
+    document.addEventListener('astro:after-swap', initFadeAnimations);
 </script>
 
 <style>
     .fade-in-wrapper {
         transition-property: opacity, transform;
-        transition-timing-function: ease-in-out;
+        transition-timing-function: ease-out;
+        contain: layout style;
     }
 </style>

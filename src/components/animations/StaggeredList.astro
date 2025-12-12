@@ -8,59 +8,68 @@ const {
     staggerDelay = 0.1,
     class: className = ''
 } = Astro.props;
-
-const id = `staggered-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <div
-    id={id}
     class={`staggered-list ${className}`}
+    data-animate="stagger"
     data-stagger-delay={staggerDelay}
 >
     <slot />
 </div>
 
 <script>
-    // Staggered animation for list items
-    const staggeredContainers = document.querySelectorAll('.staggered-list');
+    function initStaggerAnimations() {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const staggeredContainers = document.querySelectorAll('[data-animate="stagger"]');
 
-    staggeredContainers.forEach((container) => {
-        const staggerDelay = parseFloat(container.getAttribute('data-stagger-delay') || '0.1');
-        const children = Array.from(container.children) as HTMLElement[];
+        staggeredContainers.forEach((container) => {
+            const staggerDelay = parseFloat(container.getAttribute('data-stagger-delay') || '0.1');
+            const children = Array.from(container.children) as HTMLElement[];
 
-        // Set initial state for all children
-        children.forEach((child, index) => {
-            child.style.opacity = '0';
-            child.style.transform = 'translateY(20px)';
-            child.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        });
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        // Animate children with stagger
-                        children.forEach((child, index) => {
-                            setTimeout(() => {
-                                child.style.opacity = '1';
-                                child.style.transform = 'translateY(0)';
-                            }, index * staggerDelay * 1000);
-                        });
-                        observer.unobserve(entry.target);
-                    }
+            if (prefersReducedMotion) {
+                children.forEach((child) => {
+                    child.style.opacity = '1';
+                    child.style.transform = 'none';
                 });
-            },
-            {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                return;
             }
-        );
 
-        observer.observe(container);
-    });
+            children.forEach((child) => {
+                child.style.opacity = '0';
+                child.style.transform = 'translateY(20px)';
+                child.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+            });
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            children.forEach((child, index) => {
+                                setTimeout(() => {
+                                    child.style.opacity = '1';
+                                    child.style.transform = 'translate3d(0, 0, 0)';
+                                }, index * staggerDelay * 1000);
+                            });
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+            );
+
+            observer.observe(container);
+        });
+    }
+
+    initStaggerAnimations();
+    document.addEventListener('astro:after-swap', initStaggerAnimations);
 </script>
 
 <style>
+    .staggered-list {
+        contain: layout style;
+    }
     .staggered-list > * {
         will-change: opacity, transform;
     }
