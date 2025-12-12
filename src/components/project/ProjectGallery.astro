@@ -1,0 +1,196 @@
+---
+import Section from '../ui/Section.astro';
+import FadeIn from '../animations/FadeIn.astro';
+
+interface GalleryImage {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  images: GalleryImage[];
+  title?: string;
+  layout?: 'grid' | 'masonry' | 'carousel';
+}
+
+const {
+  images,
+  title = "Projektvisning",
+  layout = 'grid'
+} = Astro.props;
+---
+
+<Section>
+  {title && (
+    <FadeIn>
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold">
+          {title}
+        </h2>
+      </div>
+    </FadeIn>
+  )}
+
+  {layout === 'grid' && (
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {images.map((image, index) => (
+        <FadeIn delay={index * 0.1}>
+          <div class="group relative overflow-hidden rounded-2xl cursor-pointer gallery-item" data-index={index}>
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            {image.caption && (
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-900 to-transparent p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                <p class="text-white">{image.caption}</p>
+              </div>
+            )}
+          </div>
+        </FadeIn>
+      ))}
+    </div>
+  )}
+
+  {layout === 'masonry' && (
+    <div class="columns-1 md:columns-2 lg:columns-3 gap-8">
+      {images.map((image, index) => (
+        <FadeIn delay={index * 0.1}>
+          <div class="break-inside-avoid mb-8 group relative overflow-hidden rounded-2xl cursor-pointer gallery-item" data-index={index}>
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="w-full group-hover:scale-110 transition-transform duration-500"
+            />
+            {image.caption && (
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-900 to-transparent p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                <p class="text-white text-sm">{image.caption}</p>
+              </div>
+            )}
+          </div>
+        </FadeIn>
+      ))}
+    </div>
+  )}
+
+  {layout === 'carousel' && (
+    <div class="relative">
+      <div class="carousel-container overflow-hidden rounded-2xl">
+        <div class="carousel-track flex transition-transform duration-500 ease-out" id="carouselTrack">
+          {images.map((image) => (
+            <div class="carousel-slide min-w-full">
+              <img
+                src={image.src}
+                alt={image.alt}
+                class="w-full h-[600px] object-cover"
+              />
+              {image.caption && (
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-900 to-transparent p-8">
+                  <p class="text-white text-lg">{image.caption}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Carousel Controls -->
+      <button
+        id="prevBtn"
+        class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-gray-900/80 hover:bg-gray-800 rounded-full flex items-center justify-center transition-colors"
+        aria-label="Previous"
+      >
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <button
+        id="nextBtn"
+        class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-gray-900/80 hover:bg-gray-800 rounded-full flex items-center justify-center transition-colors"
+        aria-label="Next"
+      >
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <!-- Indicators -->
+      <div class="flex justify-center gap-2 mt-6">
+        {images.map((_, index) => (
+          <button
+            class="carousel-indicator w-2 h-2 rounded-full bg-gray-600 hover:bg-gray-400 transition-colors"
+            data-index={index}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  )}
+</Section>
+
+{layout === 'carousel' && (
+  <script>
+    let currentSlide = 0;
+    const track = document.getElementById('carouselTrack');
+    const slides = track?.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updateCarousel() {
+      if (track && slides) {
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle('bg-primary-500', index === currentSlide);
+          indicator.classList.toggle('bg-gray-600', index !== currentSlide);
+        });
+      }
+    }
+
+    nextBtn?.addEventListener('click', () => {
+      if (slides) {
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateCarousel();
+      }
+    });
+
+    prevBtn?.addEventListener('click', () => {
+      if (slides) {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        updateCarousel();
+      }
+    });
+
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        currentSlide = index;
+        updateCarousel();
+      });
+    });
+
+    // Auto-advance carousel
+    setInterval(() => {
+      if (slides) {
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateCarousel();
+      }
+    }, 5000);
+
+    updateCarousel();
+  </script>
+)}
+
+<script>
+  // Lightbox functionality for grid/masonry layouts
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  galleryItems.forEach((item) => {
+    item.addEventListener('click', () => {
+      const index = parseInt(item.getAttribute('data-index') || '0');
+      // TODO: Implement lightbox modal
+      console.log('Open lightbox for image:', index);
+    });
+  });
+</script>

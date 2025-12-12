@@ -1,64 +1,16 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import ContactForm from "../components/forms/ContactForm.astro";
 ---
+
 <Layout title="Kontakt Os">
-    <section class="container mx-auto px-6 py-20">
-        <div class="text-center mb-12">
-            <h1 class="text-5xl font-extrabold tracking-tighter">Kontakt Os</h1>
-            <p class="text-slate-400 mt-2 max-w-2xl mx-auto">Har du et projekt i tankerne? Udfyld formularen herunder, og vi vender tilbage til dig hurtigst muligt.</p>
-        </div>
-        <div class="max-w-2xl mx-auto">
-            <form id="contact-form" class="bg-[#3b3b3b] rounded-lg p-8">
-                <div class="mb-4">
-                    <label for="name" class="block text-slate-300 mb-2">Navn</label>
-                    <input type="text" id="name" name="name" class="w-full bg-[#3b3b3b] border border-[#FF6941] rounded-lg px-4 py-2  focus:outline-none focus:ring-2 focus:ring-[#F2865F]" required>
-                </div>
-                <div class="mb-4">
-                    <label for="email" class="block text-slate-300 mb-2">Email</label>
-                    <input type="email" id="email" name="email" class="w-full bg-[#3b3b3b] border border-[#FF6941] rounded-lg px-4 py-2  focus:outline-none focus:ring-2 focus:ring-[#F2865F]" required>
-                </div>
-                <div class="mb-4">
-                    <label for="telefon" class="block text-slate-300 mb-2">Telefonnummer</label>
-                    <input type="tel" id="telefon" name="telefon" class="w-full bg-[#3b3b3b] border border-[#FF6941] rounded-lg px-4 py-2  focus:outline-none focus:ring-2 focus:ring-[#F2865F]">
-                </div>
-                <div class="mb-6">
-                    <label for="message" class="block text-slate-300 mb-2">Besked</label>
-                    <textarea id="message" name="message" rows="4" class="w-full bg-[#3b3b3b] border border-[#FF6941] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#F2865F]" required></textarea>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="bg-[#FF6941] hover:bg-[#F2865F] text-white font-bold py-3 px-8 rounded-full transition-colors">
-                        Send Besked
-                    </button>
-                </div>
-            </form>
-        </div>
-    </section>
+  <section class="container mx-auto px-6 py-20">
+    <div class="max-w-3xl mx-auto">
+      <ContactForm
+        title="Kontakt Os"
+        description="Har du et projekt i tankerne? Udfyld formularen herunder, og vi vender tilbage til dig hurtigst muligt."
+        recipientEmail="luu@rnsapps.dk"
+      />
+    </div>
+  </section>
 </Layout>
-
-<script>
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const name = (document.getElementById('name') as HTMLInputElement).value;
-            const email = (document.getElementById('email') as HTMLInputElement).value;
-            const telefon = (document.getElementById('telefon') as HTMLInputElement).value;
-            const message = (document.getElementById('message') as HTMLTextAreaElement).value;
-
-            const recipientEmail = 'luu@rnsapps.dk';
-            const subject = `Kontakt fra ${name}`;
-            
-            const body = `
-                Navn: ${name}
-                Email: ${email}
-                Telefon: ${telefon}
-
-                Besked:
-                ${message}
-            `;
-
-            window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        });
-    }
-</script>

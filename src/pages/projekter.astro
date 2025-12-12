@@ -1,53 +1,84 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import smashLogo from '../assets/logos/smash.png';
-
-const projects = [
-    {
-        title: 'SMASH Padelcenter - Klub-app',
-        description: 'En klub-app udviklet til SMASH Padelcenter i Horsens. Web-appen gør det nemt for medlemmer at administrere deres klubaktiviteter, se ledige tider, og engagere sig digitalt i klubbens fællesskab. Systemet inkluderer også betaling af ting i centeret med integration til Stripe og Flatpay, og er bygget som en moderne MERN-stack løsning med fokus på brugervenlighed og performance.',
-        tags: ['PWA', 'MongoDB', 'React', 'Node.js', 'Stripe', 'Flatpay'],
-        link: "www.smash.rns-apps.dk"
-    },
-    {
-        title: 'SMASH Padelcenter - Betalingssystem',
-        description: 'En skræddersyet PWA, der fungerer som det digitale selvbetjeningssystem ' +
-            'på en fastmonteret iPad i SMASH Padelcenter Stensballe. Her kan gæster hurtigt starte en ' +
-            'personlig regning ved blot at indtaste deres telefonnummer, tilføje varer fra centret og enten betale' +
-            ' med det samme via et SMS-link eller starte en åben regning og betale senere. Systemet ' +
-            'sender daglige SMS-påmindelser til kunder med udestående regninger og integrerer direkte med vores betalingsflow. ' +
-            'Resultatet er en moderne, intuitiv og fuldautomatisk løsning, der både gør købsoplevelsen nem for gæsterne, ' +
-            'og effektiv for centeret.',
-        tags: ['PWA', 'MongoDB', 'React', 'Node.js', 'Stripe', 'Flatpay'],
-        link: "www.pos.rns-apps.dk"
-    }
-]
+import ProjectCard from '../components/project/ProjectCard.astro';
+import Section from '../components/ui/Section.astro';
+import FadeIn from '../components/animations/FadeIn.astro';
+import ParallaxSection from '../components/animations/ParallaxSection.astro';
+import { projects } from '../data/projects';
 ---
-<Layout title="Projekter">
-    <section class="container mx-auto px-6 py-20">
-        <div class="text-center mb-12">
-            <h1 class="text-5xl font-extrabold tracking-tighter">Vores Arbejde</h1>
-            <p class="text-slate-400 mt-2 max-w-2xl mx-auto">Her er et kig på vores seneste projekt. Vi er stolte af det arbejde, vi leverer, og hvordan det løser reelle problemer for vores klienter.</p>
-        </div>
 
-        <div class="grid md:grid-cols-1 lg:grid-cols-1 gap-8 max-w-2xl mx-auto">
-            {projects.map(project => (
-                <div class="bg-[#3b3b3b] rounded-lg p-6 flex flex-col">
-                    <h3 class="text-2xl font-bold text-white mb-2">{project.title}</h3>
-                    <p class="text-slate-400 flex-grow">{project.description}</p>
-                    <div class="mt-4">
-                        {project.tags.map(tag => (
-                            <span class="inline-block bg-[#314245] text-[#FF6941] text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{tag}</span>
-                        ))}
-                    </div>
-                    <div class="mt-6 flex justify-between items-center">
-                    <a href={`https://${project.link}`} target="_blank" rel="noopener noreferrer" class="inline-block bg-[#FF6941] text-white px-4 py-2 rounded hover:bg-[#F2865F] transition">
-                        Tjek vores projekt ud
-                    </a>
-                        <img src={smashLogo.src} alt="SMASH Padelcenter Logo" class="h-10 sm:h-16">
-                </div>
-                </div>
-            ))}
-        </div>
-    </section>
+<Layout title="Projekter - RNS APPS">
+	<!-- Hero Section -->
+	<ParallaxSection speed={0.3}>
+		<div class="relative min-h-[50vh] flex items-center justify-center">
+			<!-- Background gradient -->
+			<div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 via-primary-600/20 to-primary-700/20"></div>
+
+			<div class="relative z-10 container mx-auto px-4 text-center">
+				<FadeIn>
+					<h1 class="text-5xl md:text-7xl font-bold mb-6">
+						Vores <span class="bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-transparent bg-clip-text">Arbejde</span>
+					</h1>
+					<p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+						Vi er stolte af det arbejde, vi leverer, og hvordan det løser reelle problemer for vores klienter.
+						Se nogle af vores seneste projekter nedenfor.
+					</p>
+				</FadeIn>
+			</div>
+		</div>
+	</ParallaxSection>
+
+	<!-- Projects Grid -->
+	<Section>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+			{projects.map((project, index) => (
+				<FadeIn delay={index * 0.1}>
+					<ProjectCard
+						title={project.title}
+						description={project.tagline}
+						image={project.thumbnail}
+						tags={project.tags}
+						link={`/projekter/${project.slug}`}
+						featured={index < 2}
+					/>
+				</FadeIn>
+			))}
+		</div>
+
+		{/* Empty state if no projects */}
+		{projects.length === 0 && (
+			<FadeIn>
+				<div class="text-center py-20">
+					<p class="text-2xl text-gray-400">
+						Flere projekter kommer snart...
+					</p>
+				</div>
+			</FadeIn>
+		)}
+	</Section>
+
+	<!-- CTA Section -->
+	<Section class="relative overflow-hidden">
+		<div class="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-primary-600/10 to-primary-700/10 rounded-3xl"></div>
+
+		<FadeIn>
+			<div class="relative text-center py-16">
+				<h2 class="text-4xl md:text-5xl font-bold mb-4">
+					Lad Os Skabe Dit Næste Projekt
+				</h2>
+				<p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+					Har du en idé, du vil realisere? Vi er klar til at hjælpe dig med at bringe den til live.
+				</p>
+				<a
+					href="/kontakt/"
+					class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full text-white font-semibold hover:scale-105 transition-transform duration-300"
+				>
+					Start Dit Projekt
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+					</svg>
+				</a>
+			</div>
+		</FadeIn>
+	</Section>
 </Layout>

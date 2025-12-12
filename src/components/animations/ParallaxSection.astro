@@ -1,0 +1,58 @@
+---
+interface Props {
+    speed?: number;
+    class?: string;
+}
+
+const {
+    speed = 0.5,
+    class: className = ''
+} = Astro.props;
+
+const id = `parallax-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div
+    id={id}
+    class={`parallax-section ${className}`}
+    data-speed={speed}
+>
+    <slot />
+</div>
+
+<script>
+    // Simple parallax effect using scroll event
+    const parallaxElements = document.querySelectorAll('.parallax-section');
+
+    function handleScroll() {
+        parallaxElements.forEach((element) => {
+            const speed = parseFloat(element.getAttribute('data-speed') || '0.5');
+            const rect = element.getBoundingClientRect();
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * speed;
+
+            // Only apply parallax when element is in view
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                (element as HTMLElement).style.transform = `translateY(${rate}px)`;
+            }
+        });
+    }
+
+    // Use requestAnimationFrame for better performance
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                handleScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+</script>
+
+<style>
+    .parallax-section {
+        will-change: transform;
+    }
+</style>

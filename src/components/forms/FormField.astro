@@ -1,0 +1,63 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  type?: 'text' | 'email' | 'tel' | 'url' | 'textarea';
+  placeholder?: string;
+  required?: boolean;
+  rows?: number;
+  class?: string;
+}
+
+const {
+  label,
+  name,
+  type = 'text',
+  placeholder,
+  required = false,
+  rows = 4,
+  class: className = ''
+} = Astro.props;
+
+const inputId = `field-${name}`;
+const baseClasses = "w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all text-white placeholder-gray-500";
+---
+
+<div class={`form-field ${className}`}>
+  <label for={inputId} class="block text-sm font-semibold mb-2 text-gray-300">
+    {label}
+    {required && <span class="text-red-500 ml-1">*</span>}
+  </label>
+
+  {type === 'textarea' ? (
+    <textarea
+      id={inputId}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      rows={rows}
+      class={baseClasses}
+    ></textarea>
+  ) : (
+    <input
+      id={inputId}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      required={required}
+      class={baseClasses}
+    />
+  )}
+</div>
+
+<style>
+  .form-field textarea,
+  .form-field input {
+    resize: vertical;
+  }
+
+  .form-field textarea:focus,
+  .form-field input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+</style>

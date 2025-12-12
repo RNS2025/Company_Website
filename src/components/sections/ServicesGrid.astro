@@ -1,0 +1,85 @@
+---
+import Card from '../ui/Card.astro';
+import FadeIn from '../animations/FadeIn.astro';
+import Icon from '../ui/Icon.astro';
+import Section from '../ui/Section.astro';
+
+interface Service {
+  icon: string;
+  title: string;
+  description: string;
+  features: string[];
+}
+
+const services: Service[] = [
+  {
+    icon: 'smartphone',
+    title: 'Mobile Apps',
+    description: 'Apps til din telefon og tablet, der fungerer både på iPhone og Android.',
+    features: ['Virker på alle enheder', 'Nem at bruge', 'Kan bruges offline', 'Hurtig og pålidelig']
+  },
+  {
+    icon: 'globe',
+    title: 'Hjemmesider',
+    description: 'Professionelle hjemmesider der ser godt ud på alle skærme og er nemme at opdatere.',
+    features: ['Flot design', 'Mobil-venlig', 'Let at vedligeholde', 'Hurtigt indlæsning']
+  },
+  {
+    icon: 'database',
+    title: 'Systemer & Databaser',
+    description: 'Kraftfulde systemer der håndterer dine data sikkert og effektivt.',
+    features: ['Sikker datahåndtering', 'Automatisering', 'Integrationer', 'Skalerbar løsning']
+  },
+  {
+    icon: 'palette',
+    title: 'Design',
+    description: 'Smukt og brugervenligt design, der gør det nemt for dine kunder at navigere.',
+    features: ['Moderne udseende', 'Let at bruge', 'Tilpasset dit brand', 'Responsive design']
+  },
+  {
+    icon: 'shield',
+    title: 'Support & Vedligeholdelse',
+    description: 'Vi er her når du har brug for hjælp - med opdateringer, fejlrettelser og nye features.',
+    features: ['Hurtig support', 'Løbende opdateringer', 'Sikkerhed', 'Teknisk assistance']
+  }
+];
+---
+
+<Section>
+  <div class="text-center mb-16">
+    <FadeIn>
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        Hvad Vi <span class="bg-gradient-to-r from-primary-500 to-primary-600 text-transparent bg-clip-text">Leverer</span>
+      </h2>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        Komplet software-udvikling fra idé til lancering og videre
+      </p>
+    </FadeIn>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {services.map((service, index) => (
+      <FadeIn delay={index * 0.1}>
+        <Card hover="lift">
+          <div class="p-6">
+            <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center mb-4">
+              <Icon name={service.icon} class="w-6 h-6 text-white" />
+            </div>
+
+            <h3 class="text-2xl font-bold mb-3">{service.title}</h3>
+            <p class="text-gray-300 mb-4">{service.description}</p>
+
+            <ul class="space-y-2">
+              {service.features.map((feature) => (
+                <li class="flex items-center text-gray-400 text-sm">
+                  <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Card>
+      </FadeIn>
+    ))}
+  </div>
+</Section>

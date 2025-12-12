@@ -1,0 +1,206 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProjectHero from '../../components/project/ProjectHero.astro';
+import TechStack from '../../components/project/TechStack.astro';
+import ProjectGallery from '../../components/project/ProjectGallery.astro';
+import ResultsMetrics from '../../components/project/ResultsMetrics.astro';
+import Section from '../../components/ui/Section.astro';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+import FadeIn from '../../components/animations/FadeIn.astro';
+import { projects } from '../../data/projects';
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+
+// Convert project tags to technology format
+const technologies = project.tags.map((tag) => ({
+  name: tag,
+  category: getCategoryForTag(tag)
+}));
+
+function getCategoryForTag(tag: string): string {
+  const tagLower = tag.toLowerCase();
+  if (['react', 'vue', 'angular', 'pwa'].includes(tagLower)) return 'Frontend';
+  if (['node.js', 'express', 'mongodb'].includes(tagLower)) return 'Backend';
+  if (['mongodb', 'postgresql', 'mysql'].includes(tagLower)) return 'Database';
+  if (['stripe', 'flatpay', 'quickpay'].includes(tagLower)) return 'Betalinger';
+  if (['ipad', 'pos'].includes(tagLower)) return 'Hardware';
+  return 'Tools';
+}
+
+// Create gallery images from project images
+const galleryImages = project.images.map((img, index) => ({
+  src: img,
+  alt: `${project.title} screenshot ${index + 1}`,
+  caption: project.features[index] || ''
+}));
+
+// Create metrics based on project results
+const metrics = [
+  {
+    icon: 'users',
+    value: '1000',
+    label: 'Aktive Brugere',
+    trend: 'up' as const,
+    trendValue: '+25%'
+  },
+  {
+    icon: 'zap',
+    value: '99.9',
+    label: 'Uptime %',
+    description: 'Pålidelig drift'
+  },
+  {
+    icon: 'trending-up',
+    value: '40',
+    label: 'Hurtigere Flow',
+    description: 'vs. manual proces',
+    trend: 'up' as const,
+    trendValue: '+40%'
+  },
+  {
+    icon: 'star',
+    value: '4.8',
+    label: 'Bruger Rating',
+    description: 'App Store rating'
+  }
+];
+---
+
+<Layout title={`${project.title} - RNS APPS`}>
+	<!-- Project Hero -->
+	<ProjectHero
+		title={project.title}
+		description={project.tagline}
+		image={project.thumbnail}
+		tags={project.tags}
+		liveUrl={project.link}
+		category="Web Application"
+		year="2024"
+		client="SMASH Padelcenter"
+	/>
+
+	<!-- Overview Section -->
+	<Section>
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+			<!-- Challenge -->
+			<FadeIn>
+				<Card>
+					<div class="p-8">
+						<div class="flex items-center gap-3 mb-4">
+							<div class="w-12 h-12 bg-gradient-to-br from-red-500 to-orange-500 rounded-xl flex items-center justify-center">
+								<Icon name="alert-circle" class="w-6 h-6 text-white" />
+							</div>
+							<h2 class="text-3xl font-bold">Udfordringen</h2>
+						</div>
+						<p class="text-gray-300 text-lg leading-relaxed">
+							{project.challenge}
+						</p>
+					</div>
+				</Card>
+			</FadeIn>
+
+			<!-- Solution -->
+			<FadeIn delay={0.1}>
+				<Card>
+					<div class="p-8">
+						<div class="flex items-center gap-3 mb-4">
+							<div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+								<Icon name="check-circle" class="w-6 h-6 text-white" />
+							</div>
+							<h2 class="text-3xl font-bold">Løsningen</h2>
+						</div>
+						<p class="text-gray-300 text-lg leading-relaxed">
+							{project.solution}
+						</p>
+					</div>
+				</Card>
+			</FadeIn>
+		</div>
+	</Section>
+
+	<!-- Features Section -->
+	<Section>
+		<FadeIn>
+			<div class="text-center mb-12">
+				<h2 class="text-4xl md:text-5xl font-bold mb-4">
+					Nøglefunktioner
+				</h2>
+				<p class="text-xl text-gray-300 max-w-2xl mx-auto">
+					De vigtigste features der gør denne løsning unik
+				</p>
+			</div>
+		</FadeIn>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{project.features.map((feature, index) => (
+				<FadeIn delay={index * 0.05}>
+					<Card hover="lift">
+						<div class="p-6">
+							<div class="flex items-start gap-3">
+								<div class="mt-1 flex-shrink-0">
+									<Icon name="check-circle" class="w-5 h-5 text-green-500" />
+								</div>
+								<p class="text-gray-300">{feature}</p>
+							</div>
+						</div>
+					</Card>
+				</FadeIn>
+			))}
+		</div>
+	</Section>
+
+	<!-- Tech Stack -->
+	<TechStack technologies={technologies} />
+
+	<!-- Project Gallery -->
+	{galleryImages.length > 0 && (
+		<ProjectGallery
+			images={galleryImages}
+			title="Projektvisning"
+			layout="grid"
+		/>
+	)}
+
+	<!-- Results & Metrics -->
+	<ResultsMetrics
+		metrics={metrics}
+		highlights={project.results}
+		title="Projektresultater"
+		description="Målbare forbedringer og positiv indvirkning"
+	/>
+
+	<!-- CTA Section -->
+	<Section class="relative overflow-hidden">
+		<div class="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-primary-600/10 to-primary-700/10 rounded-3xl"></div>
+
+		<FadeIn>
+			<div class="relative text-center py-16">
+				<h2 class="text-4xl md:text-5xl font-bold mb-4">
+					Interesseret i et Lignende Projekt?
+				</h2>
+				<p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+					Vi kan hjælpe dig med at bygge en skræddersyet løsning, der passer til dine behov.
+				</p>
+				<div class="flex flex-wrap gap-4 justify-center">
+					<Button href="/kontakt/" variant="primary" size="lg">
+						<Icon name="message-circle" class="w-5 h-5" />
+						Kontakt Os
+					</Button>
+					<Button href="/projekter/" variant="outline" size="lg">
+						<Icon name="arrow-left" class="w-5 h-5" />
+						Se Flere Projekter
+					</Button>
+				</div>
+			</div>
+		</FadeIn>
+	</Section>
+</Layout>

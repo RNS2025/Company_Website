@@ -1,0 +1,103 @@
+---
+import Card from '../ui/Card.astro';
+import Badge from '../ui/Badge.astro';
+import Icon from '../ui/Icon.astro';
+import Section from '../ui/Section.astro';
+import FadeIn from '../animations/FadeIn.astro';
+
+interface Technology {
+  name: string;
+  icon?: string;
+  category: string;
+}
+
+interface Props {
+  technologies: Technology[];
+  title?: string;
+  description?: string;
+}
+
+const {
+  technologies,
+  title = "Teknologier",
+  description = "De værktøjer og frameworks vi brugte til at bygge dette projekt"
+} = Astro.props;
+
+// Group technologies by category
+const grouped = technologies.reduce((acc, tech) => {
+  if (!acc[tech.category]) {
+    acc[tech.category] = [];
+  }
+  acc[tech.category].push(tech);
+  return acc;
+}, {} as Record<string, Technology[]>);
+
+const categoryIcons: Record<string, string> = {
+  'Frontend': 'layout',
+  'Backend': 'server',
+  'Database': 'database',
+  'Cloud': 'cloud',
+  'Tools': 'wrench',
+  'Mobile': 'smartphone',
+  'Design': 'palette',
+  'Testing': 'test-tube'
+};
+---
+
+<Section>
+  <FadeIn>
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        {title}
+      </h2>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        {description}
+      </p>
+    </div>
+  </FadeIn>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {Object.entries(grouped).map(([category, techs], index) => (
+      <FadeIn delay={index * 0.1}>
+        <Card class="h-full">
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
+                <Icon name={categoryIcons[category] || 'box'} class="w-5 h-5 text-white" />
+              </div>
+              <h3 class="text-xl font-bold">{category}</h3>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              {techs.map((tech) => (
+                <Badge>
+                  {tech.icon && <Icon name={tech.icon} class="w-3 h-3" />}
+                  {tech.name}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        </Card>
+      </FadeIn>
+    ))}
+  </div>
+
+  <!-- Alternative: Simple list view -->
+  <div class="mt-12">
+    <FadeIn>
+      <Card>
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <Icon name="layers" class="w-5 h-5 text-primary-500" />
+            Komplet Tech Stack
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {technologies.map((tech) => (
+              <Badge size="lg">{tech.name}</Badge>
+            ))}
+          </div>
+        </div>
+      </Card>
+    </FadeIn>
+  </div>
+</Section>

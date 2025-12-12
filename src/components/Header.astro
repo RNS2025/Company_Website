@@ -1,33 +1,124 @@
 ---
-
 const BASE_URL = import.meta.env.BASE_URL || '/';
+const currentPath = Astro.url.pathname;
+
 const links = [
     { href: `${BASE_URL}`, text: 'Forside' },
     { href: `${BASE_URL}projekter/`, text: 'Projekter' },
     { href: `${BASE_URL}om-os/`, text: 'Om Os' },
     { href: `${BASE_URL}kontakt/`, text: 'Kontakt' }
 ];
+
+// Check if link is active
+const isActive = (href: string) => {
+    if (href === BASE_URL) {
+        return currentPath === BASE_URL || currentPath === '/';
+    }
+    return currentPath.startsWith(href);
+};
 ---
-<header class="bg-[#2A2A2A]/80 backdrop-blur-sm sticky top-0 z-40 w-full border-b border-[#F2965F]">
+
+<header
+    id="main-header"
+    class="bg-[#2A2A2A]/95 sticky top-0 z-50 w-full border-b border-[#F2965F]"
+    style="will-change: transform;"
+>
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href={BASE_URL}>
-            <img alt="logo" src="/logo.png" class="h-14 w-auto" />
+        <!-- Logo -->
+        <a
+            href={BASE_URL}
+            class="transition-transform duration-300 hover:scale-105"
+            aria-label="RNS APPS Forside"
+        >
+            <img
+                alt="RNS APPS Logo"
+                src="/logo.png"
+                class="h-14 w-auto"
+                width="56"
+                height="56"
+            />
         </a>
-        <nav class="hidden md:flex space-x-6">
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-6" aria-label="Primær navigation">
             {links.map(link => (
-                <a href={link.href} class="text-slate-300 hover:text-[#FF6941] transition-colors">
+                <a
+                    href={link.href}
+                    class={`
+                        text-slate-300 font-medium transition-all duration-300
+                        hover:text-primary-500 relative
+                        ${isActive(link.href) ? 'text-primary-500' : ''}
+                    `}
+                    aria-current={isActive(link.href) ? 'page' : undefined}
+                >
                     {link.text}
+                    {isActive(link.href) && (
+                        <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-primary-500"></span>
+                    )}
                 </a>
             ))}
         </nav>
-        <button id="mobile-menu-button" class="md:hidden">
-            <svg class="w-6 h-6" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+
+        <!-- Mobile Menu Button -->
+        <button
+            id="mobile-menu-button"
+            class="md:hidden p-2 rounded-lg hover:bg-dark-lighter transition-colors focus-ring"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+        >
+            <svg
+                id="menu-icon"
+                class="w-6 h-6 text-slate-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                />
+            </svg>
+            <svg
+                id="close-icon"
+                class="w-6 h-6 text-slate-300 hidden"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                />
+            </svg>
         </button>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden bg-[#FF6941] bg-opacity-50">
-        <nav class="flex flex-col items-center space-y-4 py-4">
+
+    <!-- Mobile Menu -->
+    <div
+        id="mobile-menu"
+        class="hidden md:hidden overflow-hidden bg-dark-lighter border-t border-dark-border"
+        aria-label="Mobil navigation"
+    >
+        <nav class="container mx-auto px-6 py-6 flex flex-col space-y-4">
             {links.map(link => (
-                <a href={link.href} class="hover:text-[#2A2A2A] transition-colors">
+                <a
+                    href={link.href}
+                    class={`
+                        text-lg font-medium transition-colors py-2
+                        ${isActive(link.href)
+                            ? 'text-primary-500 border-l-4 border-primary-500 pl-4'
+                            : 'text-slate-300 hover:text-primary-500 hover:pl-4 hover:border-l-4 hover:border-primary-500/50'
+                        }
+                    `}
+                    aria-current={isActive(link.href) ? 'page' : undefined}
+                >
                     {link.text}
                 </a>
             ))}
@@ -36,7 +127,34 @@ const links = [
 </header>
 
 <script>
-    document.getElementById('mobile-menu-button')?.addEventListener('click', () => {
-        document.getElementById('mobile-menu')?.classList.toggle('hidden');
+    // Mobile menu toggle
+    const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    menuButton?.addEventListener('click', () => {
+        const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+
+        // Toggle menu
+        mobileMenu?.classList.toggle('hidden');
+
+        // Toggle icons
+        menuIcon?.classList.toggle('hidden');
+        closeIcon?.classList.toggle('hidden');
+
+        // Update aria-expanded
+        menuButton.setAttribute('aria-expanded', (!isExpanded).toString());
+    });
+
+    // Close mobile menu when clicking a link
+    const mobileLinks = mobileMenu?.querySelectorAll('a');
+    mobileLinks?.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu?.classList.add('hidden');
+            menuIcon?.classList.remove('hidden');
+            closeIcon?.classList.add('hidden');
+            menuButton?.setAttribute('aria-expanded', 'false');
+        });
     });
 </script>

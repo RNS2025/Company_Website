@@ -1,49 +1,78 @@
 ---
-import Layout from '../layouts/Layout.astro';
----
-<Layout title="Forside">
-	<section class="py-24 text-center">
-		<div class="container mx-auto px-6">
-			<h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4">
-				Digital Innovation,
-				<span class="font-black bg-gradient-to-r from-[#FF6941] to-[#F2865F] text-transparent bg-clip-text">
-					Skabt af Mennesker
-				</span>
-			</h1>
-			<h2 class="max-w-3xl font-medium mx-auto text-lg md:text-xl text-slate-400 mb-8">
-				Vi omdanner gode idéer til kraftfuld software. Uanset omfanget eller platformen, bygger vi løsninger, der virker.
-			</h2>
-			<a href="/projekter/" class="bg-[#FF6941] hover:bg-[#F2865F] font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105">
-				Se vores arbejde
-			</a>
-		</div>
-	</section>
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/sections/Hero.astro";
+import ServicesGrid from "../components/sections/ServicesGrid.astro";
+import ProcessTimeline from "../components/sections/ProcessTimeline.astro";
+import StatsSection from "../components/sections/StatsSection.astro";
+import ContactForm from "../components/forms/ContactForm.astro";
+import ProjectCard from "../components/project/ProjectCard.astro";
+import Section from "../components/ui/Section.astro";
+import Button from "../components/ui/Button.astro";
+import Icon from "../components/ui/Icon.astro";
+import FadeIn from "../components/animations/FadeIn.astro";
+import { projects } from "../data/projects";
 
-    <section class="container mx-auto px-6 py-20">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-black">Hvad vi tilbyder</h2>
-            <p class="text-slate-400 mt-2">Softwareudvikling tilpasset dine behov.</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-8 text-center">
-            <div class="bg-[#FF6941] p-8 rounded-lg">
-                <h3 class="text-2xl font-bold text-white mb-2">Webløsninger</h3>
-                <p>Fra simple hjemmesider til komplekse webapplikationer. Vi bygger hurtige, responsive og moderne webløsninger.</p>
-            </div>
-            <div class="bg-[#FF6941] p-8 rounded-lg">
-                <h3 class="text-2xl font-bold text-white mb-2">Mobile Apps</h3>
-                <p>Native og cross-platform apps til iOS og Android, der giver dine brugere en fantastisk oplevelse på farten.</p>
-            </div>
-            <div class="bg-[#FF6941] p-8 rounded-lg">
-                <h3 class="text-2xl font-bold text-white mb-2">Skræddersyet Software</h3>
-                <p>Har du et unikt problem? Vi bygger den software, der løser det. Fra interne værktøjer til nye, innovative produkter.</p>
-            </div>
-        </div>
-    </section>
-    <section class="container mx-auto px-6 py-20 text-center">
-        <h2 class="text-4xl font-bold">Klar til at starte et projekt?</h2>
-        <p class="text-slate-400 mt-2 max-w-2xl mx-auto">Lad os tage en uforpligtende snak om dine idéer og hvordan vi kan hjælpe dig med at realisere dem.</p>
-        <a href="/kontakt/" class="mt-8 inline-block bg-[#FF6941] hover:bg-[#F2865F] text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105">
-            Kontakt Os
-        </a>
-    </section>
+// Get featured projects (the two SMASH projects)
+const featuredProjects = projects.slice(0, 2);
+---
+
+<Layout title="Forside - RNS APPS">
+  <!-- Hero Section -->
+  <Hero />
+
+  <!-- Services Grid -->
+  <ServicesGrid />
+
+  <!-- Featured Projects 
+	<Section>
+		<FadeIn>
+			<div class="text-center mb-16">
+				<h2 class="text-4xl md:text-5xl font-bold mb-4">
+					Udvalgte <span class="bg-gradient-to-r from-primary-500 to-primary-600 text-transparent bg-clip-text">Projekter</span>
+				</h2>
+				<p class="text-xl text-gray-300 max-w-2xl mx-auto">
+					Se nogle af vores nyeste og mest spændende projekter
+				</p>
+			</div>
+		</FadeIn>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+			{featuredProjects.map((project) => (
+				<ProjectCard
+					title={project.title}
+					description={project.tagline}
+					image={project.thumbnail}
+					tags={project.tags}
+					link={`/projekter/${project.slug}`}
+					featured={true}
+				/>
+			))}
+		</div>
+
+		<FadeIn>
+			<div class="text-center">
+				<Button href="/projekter/" variant="outline" size="lg">
+					<Icon name="arrow-right" class="w-5 h-5" />
+					Se Alle Projekter
+				</Button>
+			</div>
+		</FadeIn>
+	</Section>
+    -->
+
+  <!-- Process Timeline -->
+  <ProcessTimeline />
+
+  <!-- Stats Section 
+  <StatsSection />
+-->
+  <!-- Contact Form -->
+  <Section>
+    <div class="max-w-3xl mx-auto">
+      <ContactForm
+        title="Klar til at Starte Dit Næste Projekt?"
+        description="Fortæl os om din idé, og lad os sammen skabe noget fantastisk. Vi svarer normalt inden for 24 timer."
+      />
+    </div>
+  </Section>
 </Layout>

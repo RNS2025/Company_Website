@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '@fontsource/saira';
@@ -6,23 +7,101 @@ import '@fontsource/saira';
 interface Props {
     title: string;
     description?: string;
+    image?: string;
+    noindex?: boolean;
 }
 
-const { 
+const {
     title,
-    description = 'Vi bygger skræddersyet applikationer til alle behov.'
+    description = 'Vi bygger skræddersyet applikationer til alle behov.',
+    image = '/logo.png',
+    noindex = false
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL(image, Astro.site);
+
+// JSON-LD structured data for Organization
+const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "RNS APPS",
+    "url": "https://www.rns-apps.dk",
+    "logo": "https://www.rns-apps.dk/logo.png",
+    "description": "Professionel softwareudvikling - skræddersyede webløsninger, mobile apps og systemer",
+    "founder": [
+        {
+            "@type": "Person",
+            "name": "Luu Ninh"
+        },
+        {
+            "@type": "Person",
+            "name": "Jens Olsen"
+        }
+    ],
+    "sameAs": [
+        "https://www.linkedin.com/in/luu-ninh-669851307/",
+        "https://www.linkedin.com/in/jens-olsen-19b2aa222/"
+    ]
+};
 ---
 
 <!doctype html>
 <html lang="da" class="scroll-smooth">
     <head>
         <meta charset="UTF-8" />
-        <meta name="description" content={description} />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/logo_small.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content={Astro.generator} />
+
+        <!-- Primary Meta Tags -->
         <title>{title} | RNS APPS</title>
+        <meta name="title" content={`${title} | RNS APPS`} />
+        <meta name="description" content={description} />
+        {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+        <!-- Canonical URL -->
+        <link rel="canonical" href={canonicalURL} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:title" content={`${title} | RNS APPS`} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={socialImage} />
+        <meta property="og:site_name" content="RNS APPS" />
+        <meta property="og:locale" content="da_DK" />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={canonicalURL} />
+        <meta property="twitter:title" content={`${title} | RNS APPS`} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={socialImage} />
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="/logo_small.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
+
+        <!-- Theme Color -->
+        <meta name="theme-color" content="#2A2A2A" />
+
+        <!-- JSON-LD Structured Data -->
+        <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+
+        <!-- Google Analytics 4 with Partytown -->
+        <!-- Replace GA_MEASUREMENT_ID with your actual GA4 measurement ID -->
+        <!--
+        <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+        <script type="text/partytown">
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'GA_MEASUREMENT_ID');
+        </script>
+        -->
+
+        <!-- View Transitions -->
+        <ViewTransitions />
     </head>
     <body class="bg-[#2A2A2A] text-[#EAE9E9]">
         <Header />

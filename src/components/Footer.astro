@@ -1,13 +1,132 @@
 ---
+import { Linkedin, Mail, ArrowUp } from 'lucide-astro';
+
 const year = new Date().getFullYear();
+const BASE_URL = import.meta.env.BASE_URL || '/';
 ---
-<footer class="border-t border-[#F2965F] mt-20">
-    <div class="container mx-auto px-6 py-8 text-center text-slate-500">
-        <p>&copy; {year} RNS APPS.</p>
-        <p>Alle rettigheder forbeholdes.</p>
-        <p class="mt-2 text-sm">
-    <a href="/data-sletning/" class="hover:text-indigo-400 mr-4">Anmodning om datasletning</a>
-    <a href="/privatlivsvilkår/" class="hover:text-indigo-400">Privatlivsvilkår</a>
-</p>
+
+<footer class="border-t border-[#F2965F] mt-20 bg-dark-lighter/50">
+    <div class="container mx-auto px-6 py-12">
+        <!-- Three Column Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+            <!-- Column 1: About -->
+            <div>
+                <h3 class="text-xl font-bold text-white mb-4">RNS APPS</h3>
+                <p class="text-slate-400 mb-4">
+                    Professionel softwareudvikling. Vi skaber skræddersyede webløsninger, mobile apps og systemer der gør en forskel.
+                </p>
+                <div class="flex space-x-4">
+                    <!-- LinkedIn Links -->
+                    <a
+                        href="https://www.linkedin.com/in/luu-ninh-669851307/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-slate-400 hover:text-primary-500 transition-colors"
+                        aria-label="Luu Ninh på LinkedIn"
+                    >
+                        <Linkedin size={24} />
+                    </a>
+                    <a
+                        href="https://www.linkedin.com/in/jens-olsen-19b2aa222/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-slate-400 hover:text-primary-500 transition-colors"
+                        aria-label="Jens Olsen på LinkedIn"
+                    >
+                        <Linkedin size={24} />
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div>
+                <h3 class="text-xl font-bold text-white mb-4">Links</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href={BASE_URL} class="text-slate-400 hover:text-primary-500 transition-colors">
+                            Forside
+                        </a>
+                    </li>
+                    <li>
+                        <a href={`${BASE_URL}projekter/`} class="text-slate-400 hover:text-primary-500 transition-colors">
+                            Projekter
+                        </a>
+                    </li>
+                    <li>
+                        <a href={`${BASE_URL}om-os/`} class="text-slate-400 hover:text-primary-500 transition-colors">
+                            Om Os
+                        </a>
+                    </li>
+                    <li>
+                        <a href={`${BASE_URL}kontakt/`} class="text-slate-400 hover:text-primary-500 transition-colors">
+                            Kontakt
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Connect -->
+            <div>
+                <h3 class="text-xl font-bold text-white mb-4">Kontakt</h3>
+                <ul class="space-y-2 text-slate-400">
+                    <li class="flex items-center space-x-2">
+                        <Mail size={18} />
+                        <a
+                            href="mailto:luu@rnsapps.dk"
+                            class="hover:text-primary-500 transition-colors"
+                        >
+                            luu@rnsapps.dk
+                        </a>
+                    </li>
+                    <li class="mt-4 pt-4 border-t border-dark-border">
+                        <p class="text-sm mb-2 text-slate-500">Legal</p>
+                        <div class="flex flex-col space-y-2">
+                            <a
+                                href={`${BASE_URL}data-sletning/`}
+                                class="text-sm hover:text-primary-500 transition-colors"
+                            >
+                                Datasletning
+                            </a>
+                            <a
+                                href={`${BASE_URL}privatlivsvilkår/`}
+                                class="text-sm hover:text-primary-500 transition-colors"
+                            >
+                                Privatlivsvilkår
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-dark-border pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <!-- Copyright -->
+                <p class="text-slate-500 text-sm">
+                    &copy; {year} RNS APPS. Alle rettigheder forbeholdes.
+                </p>
+
+                <!-- Back to Top Button -->
+                <button
+                    id="back-to-top"
+                    class="mt-4 md:mt-0 flex items-center space-x-2 text-slate-400 hover:text-primary-500 transition-colors group"
+                    aria-label="Tilbage til toppen"
+                >
+                    <span class="text-sm">Tilbage til toppen</span>
+                    <ArrowUp size={18} class="group-hover:-translate-y-1 transition-transform" />
+                </button>
+            </div>
+        </div>
     </div>
 </footer>
+
+<script>
+    // Back to top smooth scroll
+    document.getElementById('back-to-top')?.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>

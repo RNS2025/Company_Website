@@ -1,0 +1,62 @@
+---
+interface Props {
+    name: string;
+    size?: number;
+    class?: string;
+}
+
+const {
+    name,
+    size = 24,
+    class: className = ''
+} = Astro.props;
+
+// Map lowercase icon names to PascalCase Lucide icon names
+const iconMap: Record<string, string> = {
+    'smartphone': 'Smartphone',
+    'globe': 'Globe',
+    'database': 'Database',
+    'palette': 'Palette',
+    'search': 'Search',
+    'shield': 'Shield',
+    'lightbulb': 'Lightbulb',
+    'pencil': 'Pencil',
+    'code': 'Code',
+    'test-tube': 'TestTube',
+    'rocket': 'Rocket',
+    'trending-up': 'TrendingUp',
+    'users': 'Users',
+    'award': 'Award',
+    'zap': 'Zap',
+    'check': 'Check',
+    'check-circle': 'CheckCircle',
+    'arrow-right': 'ArrowRight',
+    'arrow-left': 'ArrowLeft',
+    'send': 'Send',
+    'message-circle': 'MessageCircle',
+    'external-link': 'ExternalLink',
+    'github': 'Github',
+    'chevron-down': 'ChevronDown',
+    'layers': 'Layers',
+    'folder': 'Folder',
+    'calendar': 'Calendar',
+    'briefcase': 'Briefcase',
+    'alert-circle': 'AlertCircle',
+    'box': 'Box',
+    'wrench': 'Wrench',
+    'server': 'Server',
+    'cloud': 'Cloud',
+    'layout': 'Layout',
+    'trending-down': 'TrendingDown',
+    'star': 'Star'
+};
+
+// Get the PascalCase name
+const pascalName = iconMap[name.toLowerCase()] || name;
+
+// Dynamic import of Lucide icons
+const icons = await import('lucide-astro');
+const IconComponent = icons[pascalName as keyof typeof icons] as any;
+---
+
+{IconComponent && <IconComponent size={size} class={className} />}

@@ -1,0 +1,55 @@
+---
+interface Props {
+    delay?: number;
+    duration?: number;
+    class?: string;
+}
+
+const {
+    delay = 0,
+    duration = 0.6,
+    class: className = ''
+} = Astro.props;
+
+const id = `fade-in-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div
+    id={id}
+    class={`fade-in-wrapper ${className}`}
+    style={`opacity: 0; transition-delay: ${delay}s; transition-duration: ${duration}s;`}
+>
+    <slot />
+</div>
+
+<script define:vars={{ id }}>
+    // Intersection Observer for scroll-triggered fade-in
+    const element = document.getElementById(id);
+
+    if (element) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            }
+        );
+
+        observer.observe(element);
+    }
+</script>
+
+<style>
+    .fade-in-wrapper {
+        transition-property: opacity, transform;
+        transition-timing-function: ease-in-out;
+    }
+</style>
