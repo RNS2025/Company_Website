@@ -11,6 +11,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@astrojs/partytown": "^2.1.4",
     "@astrojs/sitemap": "^3.0.0",
     "@astrojs/tailwind": "^6.0.2",
     "@fontsource/saira": "^5.2.11",
