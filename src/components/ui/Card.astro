@@ -12,7 +12,7 @@ const {
 } = Astro.props;
 
 const baseStyles = 'rounded-lg p-8';
-const glassStyles = glass ? 'glass' : 'bg-dark-lighter';
+const glassStyles = glass ? 'glass' : 'bg-black bg-opacity-10 backdrop-blur-md shadow-lg shadow-orange-500/30';
 const hoverStyles = hover ? 'card-hover cursor-pointer' : '';
 
 const classes = `${baseStyles} ${glassStyles} ${hoverStyles} ${className}`;

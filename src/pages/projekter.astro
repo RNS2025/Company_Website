@@ -38,7 +38,7 @@ import { projects } from '../data/projects';
 						description={project.tagline}
 						image={project.thumbnail}
 						tags={project.tags}
-						link={`/projekter/${project.slug}`}
+						link={project.link}
 						featured={index < 2}
 					/>
 				</FadeIn>
@@ -59,7 +59,7 @@ import { projects } from '../data/projects';
 
 	<!-- CTA Section -->
 	<Section class="relative overflow-hidden">
-		<div class="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-primary-600/10 to-primary-700/10 rounded-3xl"></div>
+		<div class="absolute inset-0 rounded-3xl"></div>
 
 		<FadeIn>
 			<div class="relative text-center py-16">

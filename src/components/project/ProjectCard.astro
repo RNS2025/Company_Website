@@ -22,7 +22,7 @@ const { title, description, image, tags, link, featured = false } = Astro.props;
       <img
         src={image}
         alt={title}
-        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        class="w-full h-full object-contain scale-75 group-hover:scale-110 transition-transform duration-500"
       />
 
       {featured && (

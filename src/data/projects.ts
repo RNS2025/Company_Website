@@ -1,3 +1,5 @@
+import smashLogo from '../assets/logos/smash.png';
+
 export interface Project {
     id: string;
     slug: string;
@@ -31,7 +33,7 @@ export const projects: Project[] = [
         ],
         tags: ['PWA', 'MongoDB', 'React', 'Node.js', 'Stripe', 'Flatpay', 'Quickpay'],
         link: 'https://www.smash.rns-apps.dk',
-        thumbnail: '/logo.png',
+        thumbnail: smashLogo.src,
         images: [
             '/logo.png',
             '/logo.png',
@@ -62,7 +64,7 @@ export const projects: Project[] = [
         ],
         tags: ['React', 'Node.js', 'Quickpay', 'iPad', 'POS'],
         link: 'https://www.pos.rns-apps.dk',
-        thumbnail: '/logo.png',
+        thumbnail: smashLogo.src,
         images: [
             '/logo.png',
             '/logo.png'
