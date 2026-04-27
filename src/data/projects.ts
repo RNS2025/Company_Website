@@ -1,4 +1,6 @@
 import smashLogo from '../assets/logos/smash.png';
+import scorecardLogo from '../assets/logos/scorecard.png';
+import type { ImageMetadata } from 'astro';
 
 export interface Project {
     id: string;
@@ -11,7 +13,7 @@ export interface Project {
     results: string[];
     tags: string[];
     link: string;
-    thumbnail: string;
+    thumbnail: ImageMetadata;
     images: string[];
     features: string[];
 }
@@ -33,7 +35,7 @@ export const projects: Project[] = [
         ],
         tags: ['PWA', 'MongoDB', 'React', 'Node.js', 'Stripe', 'Flatpay', 'Quickpay'],
         link: 'https://www.smash.rns-apps.dk',
-        thumbnail: smashLogo.src,
+        thumbnail: smashLogo,
         images: [
             '/logo.png',
             '/logo.png',
@@ -64,7 +66,7 @@ export const projects: Project[] = [
         ],
         tags: ['React', 'Node.js', 'Quickpay', 'iPad', 'POS'],
         link: 'https://www.pos.rns-apps.dk',
-        thumbnail: smashLogo.src,
+        thumbnail: smashLogo,
         images: [
             '/logo.png',
             '/logo.png'
@@ -77,5 +79,34 @@ export const projects: Project[] = [
             'Kvittering via email',
             'Admin-dashboard til rapportering'
         ]
-    }
+    },
+
+    {
+        id: 'scorecard.dk',
+        slug: 'scorecard-dk',
+        title: 'scorecard.dk',
+        tagline: 'En digital scorecard-løsning til nichegolfbaner',
+        description: 'En digital scorecard-løsning designet til at imødekomme behovene hos nichegolfbaner, der ønsker at tilbyde en moderne og brugervenlig oplevelse for deres spillere.',
+        challenge: 'Nichegolfbaner havde brug for en digital scorecard-løsning, der kunne erstatte traditionelle papirscorecards. Løsningen skulle være enkel at bruge for spillere i alle aldre og tekniske færdigheder, samtidig med at den skulle integreres med eksisterende systemer for at lette administrationen.',
+        solution: 'Vi udviklede en brugervenlig webapplikation, der fungerer som en digital scorecard. Applikationen er designet med fokus på enkelhed og intuitiv navigation, så spillere nemt kan indtaste deres scores og følge deres præstationer i realtid. Løsningen inkluderer også funktioner som scorehistorik, statistik og deling af resultater på sociale medier.',
+        results: [
+            'Forbedret spilleroplevelse med en moderne og interaktiv scorecard',
+            'Reduceret brug af papir og miljøpåvirkning',
+            'Øget engagement blandt spillere gennem deling af resultater',
+            'Lettere administration for nichegolfbaner med digital scorecard-håndtering'
+        ],
+        tags: ['React', 'Node.js', 'Firebase'],
+        link: 'https://www.scorecard.dk',
+        thumbnail: scorecardLogo,
+        images: [
+            '/logo.png',
+            '/logo.png'
+        ],
+        features: [
+            'Intuitiv scorecard-interface for nem scoreindtastning',
+            'Mulighed for flere spillere at tilslutte en runde',
+            'Rangliste for at følge resultater over tid'
+        ]
+    },
+
 ];

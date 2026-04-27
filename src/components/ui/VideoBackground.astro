@@ -23,13 +23,14 @@ const overlayOpacity = {
 <div class={`video-background absolute inset-0 -z-10 overflow-hidden ${className}`}>
     <!-- Video element -->
     <video
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-        poster={poster}
-        class="absolute w-full h-full object-cover"
+            title="Baggrundsvideo"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            poster={poster}
+            class="absolute w-full h-full object-cover"
     >
         <source src={src} type="video/mp4" />
     </video>

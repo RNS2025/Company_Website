@@ -39,7 +39,7 @@ import { projects } from '../data/projects';
 						image={project.thumbnail}
 						tags={project.tags}
 						link={project.link}
-						featured={index < 2}
+						loading={index < 2 ? 'eager' : 'lazy'}
 					/>
 				</FadeIn>
 			))}

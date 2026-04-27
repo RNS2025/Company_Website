@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Analytics from '../components/analytics.astro';
@@ -96,7 +96,7 @@ const organizationSchema = {
         <link rel="preload" href="/logo.png" as="image" />
 
         <!-- View Transitions with faster swap -->
-        <ViewTransitions fallback="swap" />
+        <ClientRouter fallback="swap" />
     </head>
     <body class="bg-[#2A2A2A] text-[#EAE9E9]">
         <Header />

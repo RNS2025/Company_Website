@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 const BASE_URL = import.meta.env.BASE_URL || '/';
 const currentPath = Astro.url.pathname;
 
@@ -29,12 +31,14 @@ const isActive = (href: string) => {
             class="logo-wrapper transition-all duration-300 hover:scale-105"
             aria-label="RNS APPS Forside"
         >
-            <img
+            <Image
                 alt="RNS APPS Logo"
                 src="/logo.png"
                 class="h-14 w-auto"
-                width="56"
-                height="56"
+                width={56}
+                height={56}
+                loading="eager"
+                fetchpriority="high"
             />
         </a>
 
