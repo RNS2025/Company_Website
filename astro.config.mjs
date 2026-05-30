@@ -20,4 +20,9 @@ export default defineConfig({
     prefetchAll: true,
     defaultStrategy: "viewport",
   },
+  redirects: {
+    "/om-os/": "/",
+    "/kontakt/": "/",
+    "/projekter/": "/",
+  },
 });
