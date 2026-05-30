@@ -1,0 +1,85 @@
+---
+import Analytics from "../components/analytics.astro";
+import "@fontsource/saira/300.css";
+import "@fontsource/saira/400.css";
+import "@fontsource/saira/500.css";
+import "@fontsource/saira/600.css";
+import "@fontsource/saira/700.css";
+import "@fontsource/saira/800.css";
+import "@fontsource/saira/900.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description = "Skræddersyede webløsninger, mobile apps og systemer bygget med moderne teknologier og ren kode.",
+  image = "/logo.png",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL(image, Astro.site);
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "RNS APPS",
+  url: "https://www.rns-apps.dk",
+  logo: "https://www.rns-apps.dk/logo.png",
+  description:
+    "Professionel softwareudvikling - skræddersyede webløsninger, mobile apps og systemer",
+  founder: [
+    { "@type": "Person", name: "Luu Ninh" },
+    { "@type": "Person", name: "Jens Olsen" },
+  ],
+  sameAs: [
+    "https://www.linkedin.com/in/luu-ninh-669851307/",
+    "https://www.linkedin.com/in/jens-olsen-19b2aa222/",
+  ],
+};
+---
+
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title} | RNS APPS</title>
+    <meta name="title" content={`${title} | RNS APPS`} />
+    <meta name="description" content={description} />
+
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} | RNS APPS`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:site_name" content="RNS APPS" />
+    <meta property="og:locale" content="da_DK" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={`${title} | RNS APPS`} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={socialImage} />
+
+    <link rel="icon" type="image/png" href="/logo_small.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <meta name="theme-color" content="#2A2A2A" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+
+    <Analytics />
+
+    <link rel="preload" href="/logo.svg" as="image" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
