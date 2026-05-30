@@ -1,78 +1,212 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Hero from "../components/sections/Hero.astro";
-import ServicesGrid from "../components/sections/ServicesGrid.astro";
-import ProcessTimeline from "../components/sections/ProcessTimeline.astro";
-import StatsSection from "../components/sections/StatsSection.astro";
-import ContactForm from "../components/forms/ContactForm.astro";
-import ProjectCard from "../components/project/ProjectCard.astro";
-import Section from "../components/ui/Section.astro";
-import Button from "../components/ui/Button.astro";
+import ImmersiveLayout from "../layouts/ImmersiveLayout.astro";
 import Icon from "../components/ui/Icon.astro";
-import FadeIn from "../components/animations/FadeIn.astro";
-import { projects } from "../data/projects";
-
-// Get featured projects (the two SMASH projects)
-const featuredProjects = projects.slice(0, 2);
+import smashLogo from "../assets/logos/smash.png";
+import "../styles/immersive.css";
 ---
 
-<Layout title="Forside">
-  <!-- Hero Section -->
-  <Hero />
+<ImmersiveLayout
+  title="Forside"
+  description="Skræddersyede webløsninger, mobile apps og systemer bygget med moderne teknologier og ren kode."
+>
+  <!-- travel void -->
+  <div class="void"></div>
+  <canvas id="stars"></canvas>
+  <div class="ambient"></div>
 
-  <!-- Services Grid -->
-  <ServicesGrid />
-
-  <!-- Featured Projects 
-	<Section>
-		<FadeIn>
-			<div class="text-center mb-16">
-				<h2 class="text-4xl md:text-5xl font-bold mb-4">
-					Udvalgte <span class="bg-gradient-to-r from-primary-500 to-primary-600 text-transparent bg-clip-text">Projekter</span>
-				</h2>
-				<p class="text-xl text-gray-300 max-w-2xl mx-auto">
-					Se nogle af vores nyeste og mest spændende projekter
-				</p>
-			</div>
-		</FadeIn>
-
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-			{featuredProjects.map((project) => (
-				<ProjectCard
-					title={project.title}
-					description={project.tagline}
-					image={project.thumbnail}
-					tags={project.tags}
-					link={`/projekter/${project.slug}`}
-					featured={true}
-				/>
-			))}
-		</div>
-
-		<FadeIn>
-			<div class="text-center">
-				<Button href="/projekter/" variant="outline" size="lg">
-					<Icon name="arrow-right" class="w-5 h-5" />
-					Se Alle Projekter
-				</Button>
-			</div>
-		</FadeIn>
-	</Section>
-    -->
-
-  <!-- Process Timeline -->
-  <ProcessTimeline />
-
-  <!-- Stats Section 
-  <StatsSection />
--->
-  <!-- Contact Form -->
-  <Section>
-    <div class="max-w-3xl mx-auto">
-      <ContactForm
-        title="Klar til at Starte Dit Næste Projekt?"
-        description="Fortæl os om din idé, og lad os sammen skabe noget fantastisk. Vi svarer normalt inden for 24 timer."
-      />
+  <!-- fixed chrome -->
+  <header class="topbar">
+    <button class="brand" aria-label="Til toppen">
+      <img src="/logo.svg" alt="RNS APPS" />
+      <span class="brand__txt"><b>RNS APPS</b><span>Software Studie</span></span>
+    </button>
+    <div class="topbar__r">
+      <a class="topbar__mail" href="mailto:contact@rnsapps.dk"><Icon name="mail" class="ic" /><span>contact@rnsapps.dk</span></a>
+      <a class="btn btn--primary" href="#" data-goto="7" style="padding:11px 24px;font-size:var(--t-small)"><Icon name="message-circle" class="ic" />Start Et Projekt</a>
     </div>
-  </Section>
-</Layout>
+  </header>
+
+  <nav class="depthnav" aria-label="Sektioner">
+    <button class="dnav" aria-label="Intro"><span class="dnav__lbl">Intro</span><span class="dnav__dot"></span></button>
+    <button class="dnav" aria-label="Studiet"><span class="dnav__lbl">Studiet</span><span class="dnav__dot"></span></button>
+    <button class="dnav" aria-label="Leverer"><span class="dnav__lbl">Leverer</span><span class="dnav__dot"></span></button>
+    <button class="dnav" aria-label="Proces"><span class="dnav__lbl">Proces</span><span class="dnav__dot"></span></button>
+    <button class="dnav" aria-label="Projekter"><span class="dnav__lbl">Projekter</span><span class="dnav__dot"></span></button>
+    <button class="dnav" aria-label="Partnere"><span class="dnav__lbl">Partnere</span><span class="dnav__dot"></span></button>
+    <button class="dnav" aria-label="Løfte"><span class="dnav__lbl">Løfte</span><span class="dnav__dot"></span></button>
+    <button class="dnav" aria-label="Kontakt"><span class="dnav__lbl">Kontakt</span><span class="dnav__dot"></span></button>
+  </nav>
+
+  <div class="progress"></div>
+  <div class="credit">© 2026 RNS-Apps ApS · Danmark</div>
+
+  <div class="scrollhint">
+    <span>Scroll for at dykke ned</span>
+    <Icon name="chevron-down" class="ic" />
+  </div>
+
+  <!-- ============ THE TRAVEL SCENE ============ -->
+  <div class="scene">
+    <!-- 0 — INTRO -->
+    <section class="layer" data-screen-label="Intro">
+      <div class="gate center" style="max-width:min(980px,90vw)">
+        <span class="gate__bar"></span>
+        <span class="eyebrow" style="justify-content:center">RNS APPS · Danmark</span>
+        <h1 class="display">Enkel Proces.<br /><span class="grad">Effektive Applikationer.</span></h1>
+        <p class="lead measure" style="margin:clamp(20px,2.2vw,30px) auto 0">Skræddersyede webløsninger, mobile apps og systemer bygget med moderne teknologier og ren kode.</p>
+        <div class="cta-row" style="justify-content:center;margin-top:clamp(26px,3vw,40px)">
+          <a class="btn btn--primary" href="#" data-goto="4"><Icon name="eye" class="ic" />Se Vores Arbejde</a>
+          <a class="btn btn--outline" href="#" data-goto="7"><Icon name="message-circle" class="ic" />Start Et Projekt</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1 — MISSION -->
+    <section class="layer" data-screen-label="Studiet">
+      <div class="gate" style="max-width:min(980px,90vw)">
+        <span class="gate__bar"></span>
+        <span class="eyebrow">Studiet</span>
+        <h2 class="title">Vi Forvandler Idéer<br />Til <span class="grad">Software.</span></h2>
+        <p class="lead measure" style="margin-top:clamp(20px,2vw,28px)">Et lille dansk studie drevet af to partnere. Vi bygger skræddersyede web- og mobilløsninger med moderne teknologi, ren kode og en proces, der er nem at være kunde i.</p>
+        <div class="cta-row" style="margin-top:clamp(24px,2.4vw,34px)">
+          <span class="pill"><Icon name="globe" class="ic ic--accent" />Webløsninger</span>
+          <span class="pill"><Icon name="smartphone" class="ic ic--accent" />Mobile Apps</span>
+          <span class="pill"><Icon name="database" class="ic ic--accent" />Systemer & Integrationer</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 — LEVERER -->
+    <section class="layer" data-screen-label="Leverer">
+      <div class="gate">
+        <span class="gate__bar"></span>
+        <div class="center" style="margin-bottom:clamp(26px,2.6vw,38px)">
+          <span class="eyebrow" style="justify-content:center">Ydelser</span>
+          <h2 class="h2">Hvad Vi <span class="grad">Leverer</span></h2>
+          <p class="lead" style="margin-top:12px">Komplet softwareudvikling — fra idé til lancering og videre.</p>
+        </div>
+        <div class="grid grid-5">
+          <div class="card svc"><div class="tile"><Icon name="smartphone" class="ic" /></div><h3 class="h3">Mobile Apps</h3><p class="body">Apps til telefon og tablet — på både iPhone og Android.</p></div>
+          <div class="card svc"><div class="tile"><Icon name="globe" class="ic" /></div><h3 class="h3">Hjemmesider</h3><p class="body">Hurtige, flotte sites der ser godt ud på alle skærme.</p></div>
+          <div class="card svc"><div class="tile"><Icon name="database" class="ic" /></div><h3 class="h3">Systemer & Data</h3><p class="body">Kraftfulde systemer der håndterer dine data sikkert.</p></div>
+          <div class="card svc"><div class="tile"><Icon name="palette" class="ic" /></div><h3 class="h3">Design</h3><p class="body">Brugervenligt design tilpasset dit brand.</p></div>
+          <div class="card svc"><div class="tile"><Icon name="shield" class="ic" /></div><h3 class="h3">Support</h3><p class="body">Opdateringer, fejlrettelser og nye features.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 — PROCES -->
+    <section class="layer" data-screen-label="Proces">
+      <div class="gate">
+        <span class="gate__bar"></span>
+        <div class="center" style="margin-bottom:clamp(26px,2.6vw,38px)">
+          <span class="eyebrow" style="justify-content:center">Sådan Arbejder Vi</span>
+          <h2 class="h2">Vores <span class="grad">Proces</span></h2>
+          <p class="lead" style="margin-top:12px">Fra første tanke til færdigt resultat — vi holder dig i hånden hele vejen.</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card step"><div class="between"><span class="step__n">01</span><span class="step__tile"><Icon name="lightbulb" class="ic" /></span></div><div class="step__t">Idé & Planlægning</div><div class="step__d">Vi lytter, kortlægger dine ønsker og lægger en klar plan.</div></div>
+          <div class="card step"><div class="between"><span class="step__n">02</span><span class="step__tile"><Icon name="pencil" class="ic" /></span></div><div class="step__t">Design</div><div class="step__d">Vi tegner løsningen — flot at se på og nem at bruge.</div></div>
+          <div class="card step"><div class="between"><span class="step__n">03</span><span class="step__tile"><Icon name="code" class="ic" /></span></div><div class="step__t">Opbygning</div><div class="step__d">Vi bygger teknikken: hurtig, sikker og fremtidssikret.</div></div>
+          <div class="card step"><div class="between"><span class="step__n">04</span><span class="step__tile"><Icon name="test-tube" class="ic" /></span></div><div class="step__t">Kvalitetstjek</div><div class="step__d">Vi tester alt grundigt for fejl og topper hastigheden.</div></div>
+          <div class="card step"><div class="between"><span class="step__n">05</span><span class="step__tile"><Icon name="rocket" class="ic" /></span></div><div class="step__t">Lancering</div><div class="step__d">Vi går live og sørger for en sikker opsætning af drift.</div></div>
+          <div class="card step"><div class="between"><span class="step__n">06</span><span class="step__tile"><Icon name="trending-up" class="ic" /></span></div><div class="step__t">Samarbejde</div><div class="step__d">Vi hjælper videre med opdateringer og nye funktioner.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 — PROJEKTER -->
+    <section class="layer" data-screen-label="Projekter">
+      <div class="gate">
+        <span class="gate__bar"></span>
+        <div class="center" style="margin-bottom:clamp(24px,2.4vw,34px)">
+          <span class="eyebrow" style="justify-content:center">Udvalgt Arbejde</span>
+          <h2 class="h2">Udvalgte <span class="grad">Projekter</span></h2>
+        </div>
+        <div class="grid grid-2">
+          <div class="card proj">
+            <div class="proj__top">
+              <div class="proj__logo"><img src={smashLogo.src} alt="SMASH" /></div>
+              <div><div class="proj__tag">PWA · Klub-app</div><h3 class="h3">SMASH Padelcenter — Klub-app</h3></div>
+            </div>
+            <p class="body">En progressiv web-app til medlemmer: booking, hold og klubliv samlet ét sted — installerbar direkte fra browseren.</p>
+            <div class="proj__feat"><span class="pill"><Icon name="check" class="ic" />Offline-klar</span><span class="pill"><Icon name="check" class="ic" />Booking</span><span class="pill"><Icon name="check" class="ic" />Realtid</span></div>
+          </div>
+          <div class="card proj">
+            <div class="proj__top">
+              <div class="proj__logo"><img src={smashLogo.src} alt="SMASH" /></div>
+              <div><div class="proj__tag">iPad · POS</div><h3 class="h3">SMASH Betalingssystem</h3></div>
+            </div>
+            <p class="body">Et betalingssystem til iPad i centret. Hurtigt kassesalg med integreret betaling og reduceret ventetid for gæsterne.</p>
+            <div class="proj__feat"><span class="pill"><Icon name="check" class="ic" />Betalingsintegration</span><span class="pill"><Icon name="check" class="ic" />Hurtigt salg</span><span class="pill"><Icon name="check" class="ic" />iPad POS</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 — PARTNERE -->
+    <section class="layer" data-screen-label="Partnere">
+      <div class="gate">
+        <span class="gate__bar"></span>
+        <div class="center" style="margin-bottom:clamp(24px,2.4vw,34px)">
+          <span class="eyebrow" style="justify-content:center">Holdet</span>
+          <h2 class="h2">To Partnere. <span class="grad">Én Passion.</span></h2>
+          <p class="lead" style="margin-top:12px">Du taler altid direkte med dem, der bygger din løsning.</p>
+        </div>
+        <div class="grid grid-2">
+          <div class="card partner">
+            <div class="mono">LN</div>
+            <div class="stack-sm">
+              <div><div class="partner__role">Partner · Udvikling</div><div class="partner__name">Luu Ninh</div></div>
+              <p class="body">Bygger robuste web- og systemløsninger med fokus på ren kode og pålidelig drift.</p>
+            </div>
+          </div>
+          <div class="card partner">
+            <div class="mono">JO</div>
+            <div class="stack-sm">
+              <div><div class="partner__role">Partner · Udvikling & Design</div><div class="partner__name">Jens Olsen</div></div>
+              <p class="body">Forener brugervenligt design med solid teknik, så løsningen både er flot og virker.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 — LØFTE -->
+    <section class="layer" data-screen-label="Løfte">
+      <div class="gate center" style="max-width:min(960px,90vw)">
+        <span class="gate__bar"></span>
+        <span class="eyebrow" style="justify-content:center">Vores Løfte</span>
+        <h2 class="title">Svar Inden for<br /><span class="grad">24 Timer.</span></h2>
+        <p class="lead measure" style="margin:clamp(18px,2vw,26px) auto 0">Et lille studie med stor omhu. Ingen lange ventetider, ingen mellemled — bare en fast kontaktperson og kode du kan stole på.</p>
+        <div class="grid grid-3" style="margin-top:clamp(26px,2.8vw,38px);text-align:left">
+          <div class="card svc"><div class="tile"><Icon name="zap" class="ic" /></div><h3 class="h3">Hurtigt Svar</h3><p class="body">Vi vender normalt tilbage inden for et døgn.</p></div>
+          <div class="card svc"><div class="tile"><Icon name="shield" class="ic" /></div><h3 class="h3">Ren & Sikker Kode</h3><p class="body">Moderne teknologi, bygget til at holde.</p></div>
+          <div class="card svc"><div class="tile"><Icon name="users" class="ic" /></div><h3 class="h3">Fast Kontaktperson</h3><p class="body">Du taler altid med dem, der bygger løsningen.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 — KONTAKT -->
+    <section class="layer" data-screen-label="Kontakt">
+      <div class="gate center" style="max-width:min(900px,90vw)">
+        <span class="gate__bar"></span>
+        <span class="eyebrow" style="justify-content:center">Kontakt</span>
+        <h2 class="title">Klar til at Starte<br /><span class="grad">Dit Næste Projekt?</span></h2>
+        <p class="lead measure" style="margin:clamp(18px,2vw,26px) auto 0">Fortæl os om din idé, og lad os sammen skabe noget fantastisk. Vi svarer normalt inden for 24 timer.</p>
+        <div class="cta-row" style="justify-content:center;margin-top:clamp(26px,3vw,38px)">
+          <a class="btn btn--primary" href="mailto:contact@rnsapps.dk"><Icon name="send" class="ic" />Skriv Til Os</a>
+          <a class="btn btn--outline" href="#" data-goto="2"><Icon name="arrow-right" class="ic" />Se Hvad Vi Laver</a>
+        </div>
+        <a class="topbar__mail" href="mailto:contact@rnsapps.dk" style="justify-content:center;margin-top:24px;font-size:var(--t-body)"><Icon name="mail" class="ic" />contact@rnsapps.dk</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- scroll length -->
+  <div id="spacer"></div>
+
+  <script>
+    import "../scripts/immersive-engine.js";
+  </script>
+</ImmersiveLayout>
