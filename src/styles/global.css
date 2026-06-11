@@ -1,6 +1,37 @@
 @import "tailwindcss";
 
+/* ─── Local Fonts ─────────────────────────────────────────── */
+@font-face {
+  font-family: 'Geszog';
+  src: url('/fonts/Geszog.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Quano';
+  src: url('/fonts/Quano-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JUSTSans';
+  src: url('/fonts/JUST-Sans-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
+  /* Scroll snap på hele siden */
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+
   /* Smooth scroll behavior */
   html {
     scroll-behavior: smooth;
@@ -21,17 +52,17 @@
     }
   }
 
-  /* Custom scrollbar for dark theme with orange accent */
+  /* Custom scrollbar for light theme */
   ::-webkit-scrollbar {
     width: 12px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #2A2A2A;
+    background: #EAE9E9;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #4a4a4a;
+    background: #314245;
     border-radius: 6px;
   }
 
@@ -42,24 +73,24 @@
   /* Firefox scrollbar */
   * {
     scrollbar-width: thin;
-    scrollbar-color: #4a4a4a #2A2A2A;
+    scrollbar-color: #314245 #EAE9E9;
   }
 }
 
 @layer utilities {
   /* Glass morphism effect */
   .glass {
-    background: rgba(59, 59, 59, 0.6);
+    background: rgba(242, 242, 243, 0.7);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 105, 65, 0.1);
+    border: 1px solid rgba(49, 66, 69, 0.1);
   }
 
   .glass-strong {
-    background: rgba(59, 59, 59, 0.8);
+    background: rgba(234, 233, 233, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 105, 65, 0.2);
+    border: 1px solid rgba(49, 66, 69, 0.15);
   }
 
   /* Gradient text utility */
@@ -72,7 +103,7 @@
 
   /* Enhanced focus states for accessibility */
   .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-dark;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-[#F2F2F3];
   }
 
   /* Card hover effect */

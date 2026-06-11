@@ -14,8 +14,8 @@ const {
 
 <div class="w-full">
   <div class="text-center mb-12">
-    <h2 class="text-5xl font-extrabold tracking-tighter text-white">{title}</h2>
-    <p class="text-slate-400 mt-2 max-w-2xl mx-auto">
+    <h2 class="contact-form-title">{title}</h2>
+    <p class="contact-form-desc">
       {description}
     </p>
   </div>
@@ -23,66 +23,135 @@ const {
   <div class="max-w-2xl mx-auto">
     <form
       id="contact-component-form"
-      class="bg-black bg-opacity-10 backdrop-blur-xl shadow-lg shadow-orange-500/30 rounded-lg p-8"
+      class="contact-form-box"
       data-recipient={recipientEmail}
     >
       <div class="mb-4">
-        <label for="comp-name" class="block text-slate-300 mb-2">Navn</label>
+        <label for="comp-name" class="contact-label">Navn</label>
         <input
           type="text"
           id="comp-name"
           name="name"
-          class="w-full bg-[#3b3b3b] border border-[#FF6941] text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#F2865F]"
+          class="contact-input"
           required
         />
       </div>
 
       <div class="mb-4">
-        <label for="comp-email" class="block text-slate-300 mb-2">Email</label>
+        <label for="comp-email" class="contact-label">Email</label>
         <input
           type="email"
           id="comp-email"
           name="email"
-          class="w-full bg-[#3b3b3b] border border-[#FF6941] text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#F2865F]"
+          class="contact-input"
           required
         />
       </div>
 
       <div class="mb-4">
-        <label for="comp-phone" class="block text-slate-300 mb-2"
-          >Telefonnummer</label
-        >
+        <label for="comp-phone" class="contact-label">Telefonnummer</label>
         <input
           type="tel"
           id="comp-phone"
           name="telefon"
-          class="w-full bg-[#3b3b3b] border border-[#FF6941] text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#F2865F]"
+          class="contact-input"
         />
       </div>
 
       <div class="mb-6">
-        <label for="comp-message" class="block text-slate-300 mb-2"
-          >Besked</label
-        >
+        <label for="comp-message" class="contact-label">Besked</label>
         <textarea
           id="comp-message"
           name="message"
           rows="4"
-          class="w-full bg-[#3b3b3b] border border-[#FF6941] text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#F2865F]"
+          class="contact-input"
           required></textarea>
       </div>
 
       <div class="text-center">
         <button
           type="submit"
-          class="bg-[#FF6941] hover:bg-[#F2865F] text-white font-bold py-3 px-8 rounded-full transition-colors"
+          class="contact-submit"
         >
-          Send Besked
+          Send besked
         </button>
       </div>
     </form>
   </div>
 </div>
+
+<style>
+  .contact-form-title {
+    font-family: 'Quano', system-ui, sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.15;
+    color: #2A2A2A;
+    margin-bottom: 1rem;
+  }
+
+  .contact-form-desc {
+    font-family: 'JUSTSans', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: #314245;
+    margin-top: 0.5rem;
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+
+  .contact-form-box {
+    background: #EAE9E9;
+    border: 1px solid rgba(49, 66, 69, 0.12);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    box-shadow: 0 4px 32px rgba(49, 66, 69, 0.07);
+  }
+
+  .contact-label {
+    display: block;
+    font-family: 'JUSTSans', sans-serif;
+    font-size: 0.875rem;
+    letter-spacing: 0.03em;
+    color: #314245;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-input {
+    width: 100%;
+    background: #F2F2F3;
+    border: 1px solid rgba(49, 66, 69, 0.25);
+    border-radius: 0.5rem;
+    padding: 0.6rem 1rem;
+    font-family: 'JUSTSans', sans-serif;
+    font-size: 1rem;
+    color: #2A2A2A;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .contact-input:focus {
+    border-color: #FF6941;
+    box-shadow: 0 0 0 3px rgba(255, 105, 65, 0.15);
+  }
+
+  .contact-submit {
+    background: #FF6941;
+    color: #F2F2F3;
+    font-family: 'JUSTSans', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    padding: 0.85rem 2.5rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .contact-submit:hover {
+    background: #F2865F;
+    transform: scale(1.03);
+  }
+</style>
 
 <script>
   const form = document.getElementById("contact-component-form");

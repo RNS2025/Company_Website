@@ -8,19 +8,15 @@ import { projects } from '../data/projects';
 ---
 
 <Layout title="Projekter - RNS APPS">
-	<!-- Hero Section with Video Background -->
+	<!-- Hero Section -->
 	<section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
-		<VideoBackground
-			src="/videos/tech-background.mp4"
-			overlay="medium"
-		/>
 
 		<div class="relative z-10 container mx-auto px-4 text-center">
 			<FadeIn>
 				<h1 class="text-5xl md:text-7xl font-bold mb-6">
 					Vores <span class="bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-transparent bg-clip-text">Arbejde</span>
 				</h1>
-				<p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+				<p class="text-xl md:text-2xl text-[#314245] opacity-70 max-w-3xl mx-auto leading-relaxed">
 					Vi er stolte af det arbejde, vi leverer, og hvordan det løser reelle problemer for vores klienter.
 					Se nogle af vores seneste projekter nedenfor.
 				</p>
@@ -45,11 +41,10 @@ import { projects } from '../data/projects';
 			))}
 		</div>
 
-		{/* Empty state if no projects */}
 		{projects.length === 0 && (
 			<FadeIn>
 				<div class="text-center py-20">
-					<p class="text-2xl text-gray-400">
+					<p class="text-2xl text-[#314245] opacity-60">
 						Flere projekter kommer snart...
 					</p>
 				</div>
@@ -63,10 +58,10 @@ import { projects } from '../data/projects';
 
 		<FadeIn>
 			<div class="relative text-center py-16">
-				<h2 class="text-4xl md:text-5xl font-bold mb-4">
+				<h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#2A2A2A]">
 					Lad Os Skabe Dit Næste Projekt
 				</h2>
-				<p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+				<p class="text-xl text-[#314245] opacity-70 mb-8 max-w-2xl mx-auto">
 					Har du en idé, du vil realisere? Vi er klar til at hjælpe dig med at bringe den til live.
 				</p>
 				<a

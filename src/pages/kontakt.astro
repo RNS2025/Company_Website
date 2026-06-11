@@ -10,8 +10,6 @@ import FadeIn from "../components/animations/FadeIn.astro";
   <section
     class="relative min-h-[40vh] flex items-center justify-center overflow-hidden"
   >
-    <VideoBackground src="/videos/tech-background.mp4" overlay="medium" />
-
     <div class="relative z-10 container mx-auto px-6 text-center">
       <FadeIn>
         <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4">
@@ -20,18 +18,18 @@ import FadeIn from "../components/animations/FadeIn.astro";
             >Kontakt</span
           > Os
         </h1>
-        <p class="text-xl text-slate-300 mt-2 max-w-2xl mx-auto">
-          Har du et projekt i tankerne? Vi er klar til at hjælpe dig.
+        <p class="text-xl text-[#314245] opacity-70 mt-2 max-w-2xl mx-auto">
+          Har du et projekt i tankerne? Vi er klar til at hjælpe dig. <br />Udfyld formularen herunder, og vi vender tilbage til dig hurtigst muligt.
         </p>
       </FadeIn>
     </div>
   </section>
 
-  <section class="container mx-auto px-6 py-20">
+  <section class="container mx-auto px-6">
     <div class="max-w-3xl mx-auto">
       <ContactForm
-        title="Send Os En Besked"
-        description="Udfyld formularen herunder, og vi vender tilbage til dig hurtigst muligt."
+        title=""
+        description=""
         recipientEmail="contact@rnsapps.dk"
       />
     </div>

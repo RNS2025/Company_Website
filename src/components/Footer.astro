@@ -21,9 +21,9 @@ const BASE_URL = import.meta.env.BASE_URL || "/";
       <div>
         <div class="flex items-center gap-3 mb-4">
           <Image src={logo} alt="RNS APPS" width={40} height={40} class="h-10 w-10" loading="lazy" />
-          <h3 class="text-xl font-bold text-white">RNS APPS</h3>
+          <h3 class="text-xl font-bold text-[#2A2A2A]">RNS APPS</h3>
         </div>
-        <p class="text-slate-400 mb-6">
+        <p class="text-[#314245] opacity-70 mb-6">
           Professionel softwareudvikling. Vi skaber skræddersyede webløsninger,
           mobile apps og systemer der gør en forskel.
         </p>
@@ -52,7 +52,7 @@ const BASE_URL = import.meta.env.BASE_URL || "/";
 
       <!-- Column 2: Quick Links -->
       <div>
-        <h3 class="text-xl font-bold text-white mb-4">Links</h3>
+        <h3 class="text-xl font-bold text-[#2A2A2A] mb-4">Links</h3>
         <ul class="space-y-3">
           <li>
             <a href={BASE_URL} class="footer-link"> Forside </a>
@@ -73,28 +73,22 @@ const BASE_URL = import.meta.env.BASE_URL || "/";
 
       <!-- Column 3: Connect -->
       <div>
-        <h3 class="text-xl font-bold text-white mb-4">Kontakt</h3>
-        <ul class="space-y-3 text-slate-400">
+        <h3 class="text-xl font-bold text-[#2A2A2A] mb-4">Kontakt</h3>
+        <ul class="space-y-3 text-[#314245]">
           <li>
             <a
               href="mailto:contact@rnsapps.dk"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-primary-500/20 hover:text-primary-500 transition-all duration-300"
+              class="inline-flex items-center gap-2 py-2 rounded-lg bg-[#314245]/8 hover:text-primary-500 transition-all duration-300"
             >
               <Mail size={18} />
               contact@rnsapps.dk
             </a>
           </li>
-          <li class="mt-6 pt-4 border-t border-white/10">
-            <p class="text-sm mb-3 text-slate-500 uppercase tracking-wider">
+          <li class="mt-6 pt-4 border-t border-[#314245]/15">
+            <p class="text-sm mb-3 text-[#314245] opacity-50 uppercase tracking-wider">
               Legal
             </p>
             <div class="flex flex-col space-y-2">
-              <!-- <a
-                                href={`${BASE_URL}data-sletning/`}
-                                class="footer-link text-sm"
-                            >
-                                Datasletning
-                            </a> -->
               <a
                 href={`${BASE_URL}privatlivsvilkår/`}
                 class="footer-link text-sm"
@@ -108,10 +102,10 @@ const BASE_URL = import.meta.env.BASE_URL || "/";
     </div>
 
     <!-- Divider -->
-    <div class="border-t border-white/10 pt-8">
+    <div class="border-t border-[#314245]/15 pt-8">
       <div class="flex flex-col md:flex-row justify-between items-center">
         <!-- Copyright -->
-        <p class="text-slate-500 text-sm">
+        <p class="text-[#314245] opacity-50 text-sm">
           &copy; {year} RNS APPS. Alle rettigheder forbeholdes.
         </p>
 
@@ -131,13 +125,13 @@ const BASE_URL = import.meta.env.BASE_URL || "/";
 
 <style>
   .glass-footer {
-    background: rgba(42, 42, 42, 0.7);
+    background: rgba(234, 233, 233, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 105, 65, 0.3);
+    border-top: 1px solid rgba(255, 105, 65, 0.2);
     box-shadow:
-      0 -4px 30px rgba(0, 0, 0, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      0 -4px 30px rgba(49, 66, 69, 0.07),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
   }
 
   .social-link {
@@ -147,20 +141,21 @@ const BASE_URL = import.meta.env.BASE_URL || "/";
     width: 40px;
     height: 40px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    color: #94a3b8;
+    background: rgba(49, 66, 69, 0.08);
+    color: #314245;
     transition: all 0.3s ease;
   }
 
   .social-link:hover {
-    background: rgba(255, 105, 65, 0.2);
+    background: rgba(255, 105, 65, 0.15);
     color: #ff6941;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 105, 65, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 105, 65, 0.2);
   }
 
   .footer-link {
-    color: #94a3b8;
+    color: #314245;
+    opacity: 0.7;
     transition: all 0.3s ease;
     position: relative;
     display: inline-block;
@@ -179,6 +174,7 @@ const BASE_URL = import.meta.env.BASE_URL || "/";
 
   .footer-link:hover {
     color: #ff6941;
+    opacity: 1;
   }
 
   .footer-link:hover::after {
@@ -191,13 +187,13 @@ const BASE_URL = import.meta.env.BASE_URL || "/";
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.05);
-    color: #94a3b8;
+    background: rgba(49, 66, 69, 0.08);
+    color: #314245;
     transition: all 0.3s ease;
   }
 
   .back-to-top-btn:hover {
-    background: rgba(255, 105, 65, 0.2);
+    background: rgba(255, 105, 65, 0.15);
     color: #ff6941;
   }
 

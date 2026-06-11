@@ -10,19 +10,28 @@ module.exports = {
           200: '#FFD1C2',
           300: '#FFB9A3',
           400: '#FFA185',
-          500: '#FF6941',  // Main orange
-          600: '#F2865F',  // Lighter orange for hover
-          700: '#E05030',  // Darker orange
+          500: '#FF6941',  // Primær orange
+          600: '#F2865F',  // Lysere orange
+          700: '#E05030',
           800: '#C53D1F',
           900: '#A82E13',
         },
         dark: {
-          DEFAULT: '#2A2A2A',  // Background
-          lighter: '#3b3b3b',  // Cards
-          border: '#4a4a4a',   // Borders
+          DEFAULT: '#2A2A2A',  // Baggrund
+          lighter: '#3b3b3b',  // Kort
+          border: '#4a4a4a',   // Kanter
+        },
+        // ── Brandpalette ─────────────────────────────────
+        brand: {
+          lightest: '#F2F2F3',
+          light:    '#EAE9E9',
+          teal:     '#314245',
+          dark:     '#2A2A2A',
+          orange:   '#FF6941',
+          peach:    '#F2865F',
         },
         accent: {
-          teal: '#314245',     // Tag backgrounds
+          teal: '#314245',
         }
       },
       animation: {
