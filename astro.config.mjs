@@ -40,4 +40,31 @@ export default defineConfig({
     "/en/om-os/": "/en/#om-os",
     "/en/kontakt/": "/en/#kontakt",
   },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          assetFileNames: (assetInfo) => {
+            let name = assetInfo.name || '';
+            if (name.startsWith('.')) {
+              name = name.slice(1);
+            }
+            // Strip any other leading dots
+            name = name.replace(/^\.+/, '');
+            
+            // Extract base name and extension
+            const lastDotIndex = name.lastIndexOf('.');
+            let baseName = name;
+            let ext = '';
+            if (lastDotIndex !== -1) {
+              baseName = name.substring(0, lastDotIndex);
+              ext = name.substring(lastDotIndex);
+            }
+            return `_astro/${baseName}-[hash]${ext}`;
+          },
+        },
+      },
+    },
+  },
 });
+
