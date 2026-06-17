@@ -1,0 +1,74 @@
+---
+import CinematicLayout from "../layouts/CinematicLayout.astro";
+import VideoBackground from "../components/ui/VideoBackground.astro";
+import FadeIn from "../components/animations/FadeIn.astro";
+import Card from "../components/ui/Card.astro";
+import { AlertCircle } from "lucide-astro";
+---
+
+<CinematicLayout title="404 - Not Found" noindex={true}>
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <VideoBackground src="/video/abstract-tech.mp4" overlay="heavy" class="opacity-15" />
+
+    <div class="relative z-10 container mx-auto px-6 text-center">
+      <FadeIn>
+        <div class="max-w-md mx-auto">
+          <Card glass={true}>
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-500/20 mb-6">
+              <AlertCircle size={32} class="text-primary-500" />
+            </div>
+            
+            <h1 id="error-title" class="text-3xl md:text-4xl font-extrabold tracking-tighter mb-4 text-white">
+              404: Siden blev ikke fundet
+            </h1>
+            
+            <p id="error-desc" class="text-gray-300 mb-8 max-w-sm mx-auto font-medium">
+              Vi sender dig tilbage til forsiden om et øjeblik...
+            </p>
+
+            <div class="text-center">
+              <a
+                id="error-btn"
+                href="/"
+                class="inline-flex items-center gap-2 bg-gradient-to-r from-primary-500 to-primary-600 hover:shadow-lg hover:shadow-primary-500/30 hover:scale-105 text-white font-bold py-3.5 px-8 rounded-full transition-all duration-300"
+              >
+                Gå til forside
+              </a>
+            </div>
+          </Card>
+        </div>
+      </FadeIn>
+    </div>
+  </section>
+</CinematicLayout>
+
+<script is:inline>
+  (function() {
+    const savedLocale = localStorage.getItem('preferred-locale');
+    const browserLang = navigator.language || navigator.userLanguage || '';
+    const prefersEnglish = browserLang.toLowerCase().startsWith('en');
+    const locale = savedLocale || (prefersEnglish ? 'en' : 'da');
+
+    const titleEl = document.getElementById('error-title');
+    const descEl = document.getElementById('error-desc');
+    const btnEl = document.getElementById('error-btn');
+
+    const targetUrl = locale === 'en' ? '/en/' : '/';
+
+    if (locale === 'en') {
+      if (titleEl) titleEl.textContent = '404: Page not found';
+      if (descEl) descEl.textContent = 'Redirecting you back to the home page shortly...';
+      if (btnEl) {
+        btnEl.textContent = 'Go to homepage';
+        btnEl.setAttribute('href', targetUrl);
+      }
+    } else {
+      if (btnEl) btnEl.setAttribute('href', targetUrl);
+    }
+
+    // Auto redirect after 3 seconds
+    setTimeout(() => {
+      window.location.replace(targetUrl);
+    }, 3000);
+  })();
+</script>
