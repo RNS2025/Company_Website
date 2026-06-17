@@ -57,18 +57,17 @@ import { AlertCircle } from "lucide-astro";
 
     if (locale === 'en') {
       if (titleEl) titleEl.textContent = '404: Page not found';
-      if (descEl) descEl.textContent = 'Redirecting you back to the home page shortly...';
+      if (descEl) descEl.textContent = 'Please use the button below to return to the homepage.';
       if (btnEl) {
         btnEl.textContent = 'Go to homepage';
         btnEl.setAttribute('href', targetUrl);
       }
     } else {
-      if (btnEl) btnEl.setAttribute('href', targetUrl);
+      if (descEl) descEl.textContent = 'Brug knappen nedenfor til at vende tilbage til forsiden.';
+      if (btnEl) {
+        btnEl.textContent = 'Gå til forside';
+        btnEl.setAttribute('href', targetUrl);
+      }
     }
-
-    // Auto redirect after 3 seconds
-    setTimeout(() => {
-      window.location.replace(targetUrl);
-    }, 3000);
   })();
 </script>
