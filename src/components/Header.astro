@@ -6,9 +6,9 @@ const currentPath = Astro.url.pathname;
 
 const links = [
     { href: `${BASE_URL}`, text: 'Forside' },
-    { href: `${BASE_URL}projekter/`, text: 'Projekter' },
-    { href: `${BASE_URL}om-os/`, text: 'Om Os' },
-    { href: `${BASE_URL}kontakt/`, text: 'Kontakt' }
+    { href: `${BASE_URL}#projekter`, text: 'Projekter' },
+    { href: `${BASE_URL}#om-os`, text: 'Om Os' },
+    { href: `${BASE_URL}#kontakt`, text: 'Kontakt' }
 ];
 
 // Check if link is active
@@ -62,7 +62,7 @@ const isActive = (href: string) => {
 
             <!-- CTA Button -->
             <a
-                href="/kontakt/"
+                href={`${BASE_URL}#kontakt`}
                 data-astro-prefetch="load"
                 class="ml-4 px-5 py-2 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full text-white font-semibold hover:shadow-lg hover:shadow-primary-500/30 hover:scale-105 transition-all duration-300"
             >
@@ -137,7 +137,7 @@ const isActive = (href: string) => {
 
             <!-- Mobile CTA -->
             <a
-                href="/kontakt/"
+                href={`${BASE_URL}#kontakt`}
                 data-astro-prefetch="load"
                 class="mt-4 text-center py-3 px-4 bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl text-white font-semibold"
             >

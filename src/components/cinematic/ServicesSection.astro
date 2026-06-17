@@ -1,0 +1,37 @@
+---
+import { Code2, Sparkles, Shield } from 'lucide-astro';
+import { useTranslations } from '../../data/locales/i18n';
+
+const locale = Astro.currentLocale || 'da';
+const t = useTranslations(locale);
+const { cards, services } = t;
+
+const icons = {
+  code: Code2,
+  sparkles: Sparkles,
+  shield: Shield,
+} as const;
+---
+
+<section class="cinematic-station cinematic-services" id="ydelser" data-cinematic-station>
+  <div class="cinematic-services__inner">
+    <p class="cinematic-services__label">{services.label}</p>
+    <h2 class="cinematic-services__headline">{services.headline}</h2>
+    {services.intro && <p class="cinematic-services__intro">{services.intro}</p>}
+    <div class="cinematic-services__grid">
+      {cards.map((card, index) => {
+        const Icon = icons[card.icon];
+        return (
+          <div class="cinematic-services__card">
+            <span class="cinematic-services__card-num">{String(index + 1).padStart(2, '0')}</span>
+            <div class="cinematic-services__card-icon" aria-hidden="true">
+              <Icon size={22} stroke-width={1.75} />
+            </div>
+            <h3>{card.title}</h3>
+            <p>{card.body}</p>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

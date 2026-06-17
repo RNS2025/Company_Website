@@ -56,9 +56,14 @@ const {
 </script>
 
 <style>
-    .fade-in-wrapper {
-        transition-property: opacity, transform;
-        transition-timing-function: ease-out;
-        contain: layout style;
-    }
+  .fade-in-wrapper {
+    transition-property: opacity, transform;
+    transition-timing-function: ease-out;
+    contain: layout style;
+  }
+
+  .fade-in-wrapper.h-full {
+    height: 100%;
+    display: flex;
+  }
 </style>

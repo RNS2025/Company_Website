@@ -1,0 +1,152 @@
+---
+import ProjectCard from '../project/ProjectCard.astro';
+import { projects } from '../../data/projects';
+import { useTranslations } from '../../data/locales/i18n';
+
+const locale = Astro.currentLocale || 'da';
+const t = useTranslations(locale);
+const { featuredWork } = t;
+
+// Combine static assets with dynamic translations
+const translatedProjects = projects.map((project, index) => ({
+  ...project,
+  title: t.projects[index]?.title || project.title,
+  summary: t.projects[index]?.summary || project.summary,
+  description: t.projects[index]?.description || project.description,
+  tags: t.projects[index]?.tags || project.tags,
+}));
+---
+
+<section class="cinematic-station cinematic-projects" id="projekter" data-cinematic-station>
+  <div class="cinematic-projects__inner">
+    <p class="cinematic-projects__label">{featuredWork.label}</p>
+    <h2 class="cinematic-projects__headline">{featuredWork.headline}</h2>
+    {featuredWork.intro && <p class="cinematic-projects__intro">{featuredWork.intro}</p>}
+
+    <div class="cinematic-carousel" data-carousel>
+      <button
+        type="button"
+        class="cinematic-carousel__nav cinematic-carousel__nav--prev"
+        aria-label={locale === 'en' ? 'Previous project' : 'Forrige projekt'}
+        data-carousel-prev
+      >
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <div class="cinematic-carousel__viewport" data-carousel-viewport>
+        <div class="cinematic-carousel__track" data-carousel-track>
+          {translatedProjects.map((project, index) => (
+            <div class="cinematic-carousel__slide" data-carousel-slide>
+              <ProjectCard
+                variant="cinematic"
+                title={project.title}
+                summary={project.summary}
+                description={project.description}
+                image={project.thumbnail}
+                tags={project.tags}
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="cinematic-carousel__nav cinematic-carousel__nav--next"
+        aria-label={locale === 'en' ? 'Next project' : 'Næste projekt'}
+        data-carousel-next
+      >
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <div class="cinematic-carousel__footer">
+        <div class="cinematic-carousel__dots" data-carousel-dots role="tablist" aria-label={locale === 'en' ? 'Projects' : 'Projekter'}>
+          {translatedProjects.map((_, index) => (
+            <button
+              type="button"
+              class="cinematic-carousel__dot"
+              data-carousel-dot={index}
+              role="tab"
+              aria-label={`${locale === 'en' ? 'Project' : 'Projekt'} ${index + 1}`}
+              aria-selected={index === 0 ? 'true' : 'false'}
+            />
+          ))}
+        </div>
+        <p class="cinematic-carousel__counter" data-carousel-counter aria-live="polite">
+          <span data-carousel-current>1</span> / {translatedProjects.length}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initProjectsCarousel() {
+    const root = document.querySelector('[data-carousel]');
+    if (!root) return;
+
+    const track = root.querySelector('[data-carousel-track]') as HTMLElement;
+    const slides = Array.from(root.querySelectorAll('[data-carousel-slide]'));
+    const prevBtn = root.querySelector('[data-carousel-prev]') as HTMLButtonElement;
+    const nextBtn = root.querySelector('[data-carousel-next]') as HTMLButtonElement;
+    const dots = Array.from(root.querySelectorAll('[data-carousel-dot]')) as HTMLButtonElement[];
+    const currentEl = root.querySelector('[data-carousel-current]') as HTMLElement;
+
+    if (!track || slides.length === 0) return;
+
+    let index = 0;
+    let touchStartX = 0;
+
+    const goTo = (next: number) => {
+      index = (next + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.setAttribute('aria-selected', String(i === index));
+        dot.classList.toggle('cinematic-carousel__dot--active', i === index);
+      });
+      if (currentEl) currentEl.textContent = String(index + 1);
+      if (prevBtn) prevBtn.disabled = slides.length <= 1;
+      if (nextBtn) nextBtn.disabled = slides.length <= 1;
+    };
+
+    prevBtn?.addEventListener('click', () => goTo(index - 1));
+    nextBtn?.addEventListener('click', () => goTo(index + 1));
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const i = Number(dot.getAttribute('data-carousel-dot'));
+        if (!Number.isNaN(i)) goTo(i);
+      });
+    });
+
+    const viewport = root.querySelector('[data-carousel-viewport]');
+    viewport?.addEventListener(
+      'touchstart',
+      (e) => {
+        if (e instanceof TouchEvent) {
+          touchStartX = e.touches[0].clientX;
+        }
+      },
+      { passive: true }
+    );
+    viewport?.addEventListener(
+      'touchend',
+      (e) => {
+        if (e instanceof TouchEvent) {
+          const delta = e.changedTouches[0].clientX - touchStartX;
+          if (Math.abs(delta) > 48) goTo(delta > 0 ? index - 1 : index + 1);
+        }
+      },
+      { passive: true }
+    );
+
+    goTo(0);
+  }
+
+  initProjectsCarousel();
+  document.addEventListener('astro:after-swap', initProjectsCarousel);
+</script>

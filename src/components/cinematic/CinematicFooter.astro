@@ -1,0 +1,50 @@
+---
+import { Mail } from 'lucide-astro';
+import { useTranslations, getLocaleLink } from '../../data/locales/i18n';
+
+const year = new Date().getFullYear();
+const locale = Astro.currentLocale || 'da';
+const t = useTranslations(locale);
+---
+
+<footer class="cinematic-footer">
+  <div class="cinematic-footer__inner">
+    <div class="cinematic-footer__grid">
+      <div>
+        <div class="cinematic-footer__brand">
+          <img src="/logo.png" alt="" width="36" height="36" loading="lazy" />
+          <span>RNS APPS</span>
+        </div>
+        <p class="cinematic-footer__about">
+          {t.footer.about}
+        </p>
+      </div>
+
+      <div>
+        <h3 class="cinematic-footer__heading">{t.footer.links}</h3>
+        <ul class="cinematic-footer__links">
+          <li><a href={getLocaleLink('/#hero', locale)}>{t.nav.home}</a></li>
+          <li><a href={getLocaleLink('/#projekter', locale)}>{t.nav.projects}</a></li>
+          <li><a href={getLocaleLink('/#om-os', locale)}>{t.nav.about}</a></li>
+          <li><a href={getLocaleLink('/#kontakt', locale)}>{t.nav.contact}</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="cinematic-footer__heading">{t.footer.contact}</h3>
+        <a href="mailto:contact@rnsapps.dk" class="cinematic-footer__email">
+          <Mail size={16} />
+          contact@rnsapps.dk
+        </a>
+        <p class="cinematic-footer__legal-label">Legal</p>
+        <a href={getLocaleLink('/privatlivsvilkår/', locale)} class="cinematic-footer__legal">
+          {t.footer.legal}
+        </a>
+      </div>
+    </div>
+
+    <div class="cinematic-footer__bottom">
+      <p>&copy; {year} RNS APPS. {t.footer.rights}</p>
+    </div>
+  </div>
+</footer>

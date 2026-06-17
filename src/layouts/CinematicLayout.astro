@@ -1,0 +1,182 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Analytics from '../components/analytics.astro';
+import '@fontsource/instrument-sans/600.css';
+import '@fontsource/instrument-sans/700.css';
+import '@fontsource/instrument-sans/latin-ext-600.css';
+import '@fontsource/instrument-sans/latin-ext-700.css';
+import '../styles/cinematic.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description = 'Skræddersyet software og AI-løsninger der forbedrer jeres arbejdsgange — med fuldt ejerskab fra strategi til drift.',
+  image = '/logo.png',
+} = Astro.props;
+
+const locale = Astro.currentLocale || 'da';
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL(image, Astro.site);
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'RNS APPS',
+  url: 'https://www.rns-apps.dk',
+  logo: 'https://www.rns-apps.dk/logo.png',
+  description:
+    'Skræddersyet software og AI-strategi — jeres langsigtede tekniske partner.',
+  founder: [
+    { '@type': 'Person', name: 'Luu Ninh' },
+    { '@type': 'Person', name: 'Jens Olsen' },
+  ],
+  sameAs: [
+    'https://www.linkedin.com/in/luu-ninh-669851307/',
+    'https://www.linkedin.com/in/jens-olsen-19b2aa222/',
+  ],
+};
+---
+
+<!doctype html>
+<html lang={locale} class="cinematic-page">
+  <head>
+    <!-- Language Auto-Detection & Redirection -->
+    <script is:inline>
+      (function() {
+        const savedLocale = localStorage.getItem('preferred-locale');
+        const path = window.location.pathname;
+        const isEnglishPath = path.startsWith('/en/') || path === '/en';
+        
+        const browserLang = navigator.language || navigator.userLanguage || '';
+        const prefersEnglish = browserLang.toLowerCase().startsWith('en');
+        
+        const targetLocale = savedLocale || (prefersEnglish ? 'en' : 'da');
+        
+        if (targetLocale === 'en' && !isEnglishPath) {
+          const newPath = '/en' + (path === '/' ? '/' : path);
+          window.location.replace(newPath);
+        } else if (targetLocale === 'da' && isEnglishPath) {
+          const newPath = path.replace(/^\/en/, '') || '/';
+          window.location.replace(newPath);
+        }
+      })();
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title} | RNS APPS</title>
+    <meta name="title" content={`${title} | RNS APPS`} />
+    <meta name="description" content={description} />
+
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} | RNS APPS`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:site_name" content="RNS APPS" />
+    <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'da_DK'} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={`${title} | RNS APPS`} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={socialImage} />
+
+    <link rel="icon" type="image/png" href="/logo_small.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <meta name="theme-color" content="#2A2A2A" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+
+    <Analytics />
+
+    <link rel="preload" href="/logo.png" as="image" />
+    <link rel="preload" href="/fonts/Geszog.otf" as="font" type="font/otf" crossorigin />
+    <link rel="preload" href="/fonts/JUST-Sans-Medium.otf" as="font" type="font/otf" crossorigin />
+
+    <ClientRouter fallback="swap" />
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      import '../scripts/micro-interactions.js';
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  /* Custom Cursor styles */
+  .custom-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #ff6941;
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate3d(-3px, -3px, 0);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+  }
+  .custom-cursor-ring {
+    width: 30px;
+    height: 30px;
+    border: 1.5px solid rgba(255, 105, 65, 0.4);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate3d(-15px, -15px, 0);
+    transition: width 0.25s, height 0.25s, border-color 0.2s, background-color 0.2s;
+  }
+  .custom-cursor-ring--hover {
+    width: 46px;
+    height: 46px;
+    background-color: rgba(255, 105, 65, 0.08);
+    border-color: rgba(255, 105, 65, 0.75);
+  }
+  .custom-cursor-dot--hover {
+    width: 4px;
+    height: 4px;
+    background-color: #f2865f;
+  }
+  /* Hide standard cursor on desktop devices with fine pointer */
+  @media (pointer: fine) {
+    html.cinematic-page,
+    html.cinematic-page * {
+      cursor: none !important;
+    }
+  }
+
+  /* Glow Cards CSS Helper Variables */
+  .cinematic-project-card, .card, .service-tile, .pill-btn, .row-btn {
+    position: relative;
+  }
+  .cinematic-project-card::before, .card::before, .service-tile::before, .pill-btn::before, .row-btn::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: radial-gradient(130px circle at var(--x, 0px) var(--y, 0px), rgba(255, 105, 65, 0.15), transparent);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .cinematic-project-card:hover::before, .card:hover::before, .service-tile:hover::before, .pill-btn:hover::before, .row-btn:hover::before {
+    opacity: 1;
+  }
+</style>

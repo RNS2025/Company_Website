@@ -1,0 +1,179 @@
+---
+import { useTranslations, getLocaleLink } from '../../data/locales/i18n';
+
+const locale = Astro.currentLocale || 'da';
+const t = useTranslations(locale);
+
+const links = [
+  { href: getLocaleLink('/#projekter', locale), text: t.nav.projects },
+  { href: getLocaleLink('/#om-os', locale), text: t.nav.about },
+];
+---
+
+<header class="cinematic-nav-header" id="cinematic-header">
+  <nav class="cinematic-nav" aria-label={t.nav.openMenu}>
+    <div class="cinematic-nav__left">
+      <a href={getLocaleLink('/#hero', locale)} class="brand" aria-label={t.nav.ariaHome}>
+        <img src="/logo.png" alt="" width="52" height="52" />
+      </a>
+      <div class="nav-links">
+        {links.map((link) => (
+          <a href={link.href}>{link.text}</a>
+        ))}
+      </div>
+    </div>
+
+    <div class="cinematic-nav__right">
+      <div class="social social--desktop" style="display: flex; align-items: center; gap: 1rem;">
+        <a href={locale === 'da' ? '/en/' : '/'} class="lang-switch-btn" data-locale-switch={locale === 'da' ? 'en' : 'da'}>
+          {locale === 'da' ? 'EN' : 'DA'}
+        </a>
+        <a href={getLocaleLink('/#kontakt', locale)} class="cta-nav">
+          <span>{t.nav.contact}</span>
+        </a>
+      </div>
+
+      <button
+        type="button"
+        id="cinematic-menu-button"
+        class="cinematic-menu-button"
+        aria-label={t.nav.openMenu}
+        aria-expanded="false"
+        aria-controls="cinematic-mobile-menu"
+      >
+        <svg id="cinematic-menu-icon" class="cinematic-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="cinematic-close-icon" class="cinematic-menu-icon cinematic-menu-icon--hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="cinematic-mobile-menu" class="cinematic-mobile-menu cinematic-mobile-menu--hidden" aria-label={t.nav.openMenu}>
+    <nav class="cinematic-mobile-menu__nav">
+      {links.map((link) => (
+        <a href={link.href} class="cinematic-mobile-menu__link">{link.text}</a>
+      ))}
+      <a href={getLocaleLink('/#kontakt', locale)} class="cinematic-mobile-menu__link">{t.nav.contact}</a>
+      
+      <div style="display: flex; gap: 1rem; align-items: center; justify-content: center; margin: 1.5rem 0 0.5rem;">
+        <a href={locale === 'da' ? '/en/' : '/'} class="lang-switch-btn" data-locale-switch={locale === 'da' ? 'en' : 'da'}>
+          {locale === 'da' ? 'English (EN)' : 'Dansk (DA)'}
+        </a>
+      </div>
+
+      <a href={getLocaleLink('/#kontakt', locale)} class="cinematic-btn cinematic-btn--primary cinematic-mobile-menu__cta">
+        {t.nav.cta}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function initCinematicMobileMenu() {
+    const menuButton = document.getElementById('cinematic-menu-button');
+    const mobileMenu = document.getElementById('cinematic-mobile-menu');
+    const menuIcon = document.getElementById('cinematic-menu-icon');
+    const closeIcon = document.getElementById('cinematic-close-icon');
+    if (!menuButton || !mobileMenu) return;
+
+    mobileMenu.classList.add('cinematic-mobile-menu--hidden');
+    menuIcon?.classList.remove('cinematic-menu-icon--hidden');
+    closeIcon?.classList.add('cinematic-menu-icon--hidden');
+    menuButton.setAttribute('aria-expanded', 'false');
+
+    const newBtn = menuButton.cloneNode(true) as HTMLButtonElement;
+    menuButton.parentNode?.replaceChild(newBtn, menuButton);
+
+    const menu = document.getElementById('cinematic-mobile-menu');
+    const openIcon = document.getElementById('cinematic-menu-icon');
+    const shutIcon = document.getElementById('cinematic-close-icon');
+
+    newBtn.addEventListener('click', () => {
+      const isOpen = newBtn.getAttribute('aria-expanded') === 'true';
+      menu?.classList.toggle('cinematic-mobile-menu--hidden', isOpen);
+      openIcon?.classList.toggle('cinematic-menu-icon--hidden', !isOpen);
+      shutIcon?.classList.toggle('cinematic-menu-icon--hidden', isOpen);
+      newBtn.setAttribute('aria-expanded', String(!isOpen));
+      newBtn.setAttribute('aria-label', isOpen ? 'Åbn menu' : 'Luk menu');
+    });
+
+    menu?.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menu.classList.add('cinematic-mobile-menu--hidden');
+        openIcon?.classList.remove('cinematic-menu-icon--hidden');
+        shutIcon?.classList.add('cinematic-menu-icon--hidden');
+        newBtn.setAttribute('aria-expanded', 'false');
+        newBtn.setAttribute('aria-label', 'Åbn menu');
+      });
+    });
+  }
+
+  function initScrollHeader() {
+    const header = document.getElementById('cinematic-header');
+    if (!header) return;
+    const updateHeader = () => {
+      if (window.scrollY > 20) {
+        header.classList.add('cinematic-nav-header--scrolled');
+      } else {
+        header.classList.remove('cinematic-nav-header--scrolled');
+      }
+    };
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    updateHeader();
+  }
+
+  function initLangSwitch() {
+    document.querySelectorAll('[data-locale-switch]').forEach((el) => {
+      el.addEventListener('click', () => {
+        const targetLocale = el.getAttribute('data-locale-switch');
+        if (targetLocale) {
+          localStorage.setItem('preferred-locale', targetLocale);
+        }
+      });
+    });
+  }
+
+  initCinematicMobileMenu();
+  initScrollHeader();
+  initLangSwitch();
+  
+  document.addEventListener('astro:after-swap', () => {
+    initCinematicMobileMenu();
+    initScrollHeader();
+    initLangSwitch();
+  });
+</script>
+
+<style is:global>
+  .cinematic-nav-header {
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .cinematic-nav-header--scrolled {
+    background-color: rgba(14, 13, 12, 0.65) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  .lang-switch-btn {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--cinematic-muted);
+    text-decoration: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.2s ease;
+    letter-spacing: 0.05em;
+  }
+  .lang-switch-btn:hover {
+    color: #fff;
+    border-color: var(--primary-500);
+    background: rgba(255, 105, 65, 0.08);
+    box-shadow: 0 0 10px rgba(255, 105, 65, 0.15);
+  }
+</style>

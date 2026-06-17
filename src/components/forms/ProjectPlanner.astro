@@ -1,0 +1,413 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { useTranslations } from '../../data/locales/i18n';
+
+interface Props {
+  recipientEmail?: string;
+}
+
+const { recipientEmail = "contact@rnsapps.dk" } = Astro.props;
+const locale = Astro.currentLocale || 'da';
+const t = useTranslations(locale);
+---
+
+<div class="project-planner-container w-full max-w-3xl mx-auto">
+  <!-- Progress Bar Header -->
+  <div class="mb-12">
+    <div class="flex justify-between text-xs font-semibold tracking-wider text-gray-500 uppercase mb-3" id="planner-steps-labels">
+      <span class="step-label active">{t.planner.steps.service}</span>
+      <span class="step-label">{t.planner.steps.budget}</span>
+      <span class="step-label">{t.planner.steps.timeline}</span>
+      <span class="step-label">{t.planner.steps.contact}</span>
+    </div>
+    <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden border border-white/5">
+      <div id="planner-progress" class="bg-gradient-to-r from-primary-500 to-primary-600 h-full w-1/4 transition-all duration-500 ease-out"></div>
+    </div>
+  </div>
+
+  <form id="project-planner-form" class="relative" data-recipient={recipientEmail} data-i18n={JSON.stringify(t.planner.emailTemplate)}>
+    
+    <!-- STEP 1: CHOOSE SERVICE -->
+    <div class="planner-step active" data-step="1">
+      <h2 class="text-3xl font-extrabold tracking-tighter mb-4 text-white text-center">{t.planner.step1.title}</h2>
+      <p class="text-gray-300 text-center mb-8 max-w-md mx-auto">{t.planner.step1.description}</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <label class="service-tile-label cursor-pointer group">
+          <input type="radio" name="service" value="Software" class="sr-only" required checked />
+          <div class="service-tile p-6 rounded-2xl border border-white/10 bg-white/5 text-center transition-all duration-300 group-hover:border-primary-500/30 group-hover:bg-white/10">
+            <div class="w-12 h-12 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <Icon name="code" class="w-6 h-6" />
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">{t.planner.step1.options.software.title}</h3>
+            <p class="text-xs text-gray-300">{t.planner.step1.options.software.desc}</p>
+          </div>
+        </label>
+
+        <label class="service-tile-label cursor-pointer group">
+          <input type="radio" name="service" value="AI Integration" class="sr-only" />
+          <div class="service-tile p-6 rounded-2xl border border-white/10 bg-white/5 text-center transition-all duration-300 group-hover:border-primary-500/30 group-hover:bg-white/10">
+            <div class="w-12 h-12 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <Icon name="zap" class="w-6 h-6" />
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">{t.planner.step1.options.ai.title}</h3>
+            <p class="text-xs text-gray-300">{t.planner.step1.options.ai.desc}</p>
+          </div>
+        </label>
+
+        <label class="service-tile-label cursor-pointer group">
+          <input type="radio" name="service" value="Integration & Drift" class="sr-only" />
+          <div class="service-tile p-6 rounded-2xl border border-white/10 bg-white/5 text-center transition-all duration-300 group-hover:border-primary-500/30 group-hover:bg-white/10">
+            <div class="w-12 h-12 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <Icon name="shield" class="w-6 h-6" />
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">{t.planner.step1.options.ops.title}</h3>
+            <p class="text-xs text-gray-300">{t.planner.step1.options.ops.desc}</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- STEP 2: DEFINE SCOPE & BUDGET -->
+    <div class="planner-step hidden" data-step="2">
+      <h2 class="text-3xl font-extrabold tracking-tighter mb-4 text-white text-center">{t.planner.step2.title}</h2>
+      <p class="text-gray-300 text-center mb-8 max-w-md mx-auto">{t.planner.step2.description}</p>
+      
+      <div class="space-y-6 max-w-xl mx-auto">
+        <div>
+          <label class="block text-sm font-semibold tracking-wider text-gray-300 uppercase mb-3">{t.planner.step2.sizeLabel}</label>
+          <div class="grid grid-cols-3 gap-4">
+            <label class="radio-pill cursor-pointer text-center">
+              <input type="radio" name="scope" value="Lille" class="sr-only" checked />
+              <div class="pill-btn py-3 px-4 rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-gray-300 transition-all">{t.planner.step2.sizes.small}</div>
+            </label>
+            <label class="radio-pill cursor-pointer text-center">
+              <input type="radio" name="scope" value="Mellem" class="sr-only" />
+              <div class="pill-btn py-3 px-4 rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-gray-300 transition-all">{t.planner.step2.sizes.medium}</div>
+            </label>
+            <label class="radio-pill cursor-pointer text-center">
+              <input type="radio" name="scope" value="Stort" class="sr-only" />
+              <div class="pill-btn py-3 px-4 rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-gray-300 transition-all">{t.planner.step2.sizes.large}</div>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold tracking-wider text-gray-300 uppercase mb-3">{t.planner.step2.budgetLabel}</label>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <label class="radio-pill cursor-pointer text-center">
+              <input type="radio" name="budget" value="Under 50k" class="sr-only" checked />
+              <div class="pill-btn py-3 px-2 rounded-xl border border-white/10 bg-white/5 text-xs md:text-sm font-bold text-gray-300 transition-all">&lt; 50.000</div>
+            </label>
+            <label class="radio-pill cursor-pointer text-center">
+              <input type="radio" name="budget" value="50k - 150k" class="sr-only" />
+              <div class="pill-btn py-3 px-2 rounded-xl border border-white/10 bg-white/5 text-xs md:text-sm font-bold text-gray-300 transition-all">50k - 150k</div>
+            </label>
+            <label class="radio-pill cursor-pointer text-center">
+              <input type="radio" name="budget" value="150k - 300k" class="sr-only" />
+              <div class="pill-btn py-3 px-2 rounded-xl border border-white/10 bg-white/5 text-xs md:text-sm font-bold text-gray-300 transition-all">150k - 300k</div>
+            </label>
+            <label class="radio-pill cursor-pointer text-center">
+              <input type="radio" name="budget" value="Over 300k" class="sr-only" />
+              <div class="pill-btn py-3 px-2 rounded-xl border border-white/10 bg-white/5 text-xs md:text-sm font-bold text-gray-300 transition-all">300.000+</div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: TIMELINE EXPECTATIONS -->
+    <div class="planner-step hidden" data-step="3">
+      <h2 class="text-3xl font-extrabold tracking-tighter mb-4 text-white text-center">{t.planner.step3.title}</h2>
+      <p class="text-gray-300 text-center mb-8 max-w-md mx-auto">{t.planner.step3.description}</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-xl mx-auto">
+        <label class="radio-row cursor-pointer">
+          <input type="radio" name="timeline" value="Hurtigst muligt" class="sr-only" checked />
+          <div class="row-btn p-4 rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-gray-300 flex items-center justify-between transition-all">
+            <span>{t.planner.step3.options.asap}</span>
+            <div class="circle-indicator w-4 h-4 rounded-full border border-white/20 flex items-center justify-center">
+              <div class="dot w-2 h-2 rounded-full bg-primary-500 opacity-0"></div>
+            </div>
+          </div>
+        </label>
+        
+        <label class="radio-row cursor-pointer">
+          <input type="radio" name="timeline" value="1-3 måneder" class="sr-only" />
+          <div class="row-btn p-4 rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-gray-300 flex items-center justify-between transition-all">
+            <span>{t.planner.step3.options.medium}</span>
+            <div class="circle-indicator w-4 h-4 rounded-full border border-white/20 flex items-center justify-center">
+              <div class="dot w-2 h-2 rounded-full bg-primary-500 opacity-0"></div>
+            </div>
+          </div>
+        </label>
+
+        <label class="radio-row cursor-pointer">
+          <input type="radio" name="timeline" value="3-6 måneder" class="sr-only" />
+          <div class="row-btn p-4 rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-gray-300 flex items-center justify-between transition-all">
+            <span>{t.planner.step3.options.long}</span>
+            <div class="circle-indicator w-4 h-4 rounded-full border border-white/20 flex items-center justify-center">
+              <div class="dot w-2 h-2 rounded-full bg-primary-500 opacity-0"></div>
+            </div>
+          </div>
+        </label>
+
+        <label class="radio-row cursor-pointer">
+          <input type="radio" name="timeline" value="Fleksibel" class="sr-only" />
+          <div class="row-btn p-4 rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-gray-300 flex items-center justify-between transition-all">
+            <span>{t.planner.step3.options.flexible}</span>
+            <div class="circle-indicator w-4 h-4 rounded-full border border-white/20 flex items-center justify-center">
+              <div class="dot w-2 h-2 rounded-full bg-primary-500 opacity-0"></div>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- STEP 4: CONTACT DETAILS & SUBMIT -->
+    <div class="planner-step hidden" data-step="4">
+      <h2 class="text-3xl font-extrabold tracking-tighter mb-4 text-white text-center">{t.planner.step4.title}</h2>
+      <p class="text-gray-300 text-center mb-8 max-w-md mx-auto">{t.planner.step4.description}</p>
+      
+      <div class="space-y-4 max-w-xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="planner-name" class="block text-xs font-semibold tracking-wider text-gray-300 uppercase mb-2">{t.planner.step4.fields.name}</label>
+            <input type="text" id="planner-name" name="name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary-500 focus:outline-none transition-colors" required />
+          </div>
+          <div>
+            <label for="planner-email" class="block text-xs font-semibold tracking-wider text-gray-300 uppercase mb-2">{t.planner.step4.fields.email}</label>
+            <input type="email" id="planner-email" name="email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary-500 focus:outline-none transition-colors" required />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="planner-company" class="block text-xs font-semibold tracking-wider text-gray-300 uppercase mb-2">{t.planner.step4.fields.company}</label>
+            <input type="text" id="planner-company" name="company" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary-500 focus:outline-none transition-colors" />
+          </div>
+          <div>
+            <label for="planner-phone" class="block text-xs font-semibold tracking-wider text-gray-300 uppercase mb-2">{t.planner.step4.fields.phone}</label>
+            <input type="tel" id="planner-phone" name="phone" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary-500 focus:outline-none transition-colors" />
+          </div>
+        </div>
+
+        <div>
+          <label for="planner-desc" class="block text-xs font-semibold tracking-wider text-gray-300 uppercase mb-2">{t.planner.step4.fields.desc}</label>
+          <textarea id="planner-desc" name="description" rows="4" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary-500 focus:outline-none transition-colors" placeholder={t.planner.step4.fields.placeholder} required></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="flex justify-between items-center mt-12 max-w-xl mx-auto border-t border-white/5 pt-6">
+      <button type="button" id="prev-step-btn" class="px-6 py-3 rounded-full border border-white/10 text-gray-300 font-bold hover:bg-white/5 transition-all opacity-0 pointer-events-none">
+        {t.planner.buttons.prev}
+      </button>
+      
+      <button type="button" id="next-step-btn" class="px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 hover:shadow-lg hover:shadow-primary-500/30 text-white font-bold rounded-full transition-all hover:scale-102">
+        {t.planner.buttons.next}
+      </button>
+
+      <button type="submit" id="submit-planner-btn" class="px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 hover:shadow-lg hover:shadow-primary-500/30 text-white font-bold rounded-full transition-all hover:scale-102 hidden">
+        {t.planner.buttons.submit}
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<style>
+  /* Custom tile states */
+  .service-tile-label input:checked + .service-tile {
+    border-color: #FF6941;
+    background: rgba(255, 105, 65, 0.08);
+    box-shadow: 0 0 20px rgba(255, 105, 65, 0.15);
+  }
+  .service-tile-label input:checked + .service-tile .w-12 {
+    background-color: #FF6941;
+    color: #fff;
+    transform: scale(1.05);
+  }
+
+  /* Pills radio states */
+  .radio-pill input:checked + .pill-btn {
+    border-color: #FF6941;
+    background: #FF6941;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 105, 65, 0.25);
+  }
+
+  /* Row button states */
+  .radio-row input:checked + .row-btn {
+    border-color: #FF6941;
+    background: rgba(255, 105, 65, 0.05);
+  }
+  .radio-row input:checked + .row-btn .dot {
+    opacity: 1;
+  }
+  .radio-row input:checked + .row-btn .circle-indicator {
+    border-color: #FF6941;
+  }
+
+  /* Step transitions */
+  .planner-step {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .planner-step.hidden {
+    display: none;
+    opacity: 0;
+    transform: translateY(12px);
+  }
+</style>
+
+<script>
+  function initProjectPlanner() {
+    const form = document.getElementById('project-planner-form') as HTMLFormElement;
+    if (!form) return;
+
+    const steps = form.querySelectorAll('.planner-step');
+    const labels = document.querySelectorAll('#planner-steps-labels .step-label');
+    const progress = document.getElementById('planner-progress');
+    const prevBtn = document.getElementById('prev-step-btn') as HTMLButtonElement;
+    const nextBtn = document.getElementById('next-step-btn') as HTMLButtonElement;
+    const submitBtn = document.getElementById('submit-planner-btn') as HTMLButtonElement;
+
+    let currentStepIndex = 0;
+
+    function validateCurrentStep() {
+      const inputs = steps[currentStepIndex].querySelectorAll('input[required], textarea[required]');
+      let isValid = true;
+      inputs.forEach(input => {
+        if (input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement) {
+          if (!input.value.trim()) {
+            isValid = false;
+            input.classList.add('border-red-500');
+          } else {
+            input.classList.remove('border-red-500');
+          }
+        }
+      });
+      return isValid;
+    }
+
+    function updateStepUI() {
+      // Toggle steps
+      steps.forEach((step, idx) => {
+        if (idx === currentStepIndex) {
+          step.classList.remove('hidden');
+          // Smooth animation trigger
+          requestAnimationFrame(() => {
+            if (step instanceof HTMLElement) {
+              step.style.opacity = '1';
+              step.style.transform = 'translateY(0)';
+            }
+          });
+        } else {
+          step.classList.add('hidden');
+          if (step instanceof HTMLElement) {
+            step.style.opacity = '0';
+            step.style.transform = 'translateY(12px)';
+          }
+        }
+      });
+
+      // Update Labels
+      labels.forEach((label, idx) => {
+        label.classList.toggle('text-white', idx <= currentStepIndex);
+        label.classList.toggle('text-primary-500', idx === currentStepIndex);
+        label.classList.toggle('text-gray-500', idx > currentStepIndex);
+      });
+
+      // Progress bar percentage
+      const pct = ((currentStepIndex + 1) / steps.length) * 100;
+      if (progress) {
+        progress.style.width = `${pct}%`;
+      }
+
+      // Prev Button Visibility
+      if (currentStepIndex === 0) {
+        prevBtn.classList.add('opacity-0', 'pointer-events-none');
+      } else {
+        prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+      }
+
+      // Next / Submit Button Toggle
+      if (currentStepIndex === steps.length - 1) {
+        nextBtn.classList.add('hidden');
+        submitBtn.classList.remove('hidden');
+      } else {
+        nextBtn.classList.remove('hidden');
+        submitBtn.classList.add('hidden');
+      }
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (!validateCurrentStep()) return;
+      if (currentStepIndex < steps.length - 1) {
+        currentStepIndex++;
+        updateStepUI();
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentStepIndex > 0) {
+        currentStepIndex--;
+        updateStepUI();
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const recipient = form.dataset.recipient || "contact@rnsapps.dk";
+      const i18n = JSON.parse(form.dataset.i18n || '{}');
+      const formData = new FormData(form);
+
+      const service = formData.get('service');
+      const scope = formData.get('scope');
+      const budget = formData.get('budget');
+      const timeline = formData.get('timeline');
+      
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const company = formData.get('company') || i18n.notSpecified || 'Ikke angivet';
+      const phone = formData.get('phone') || i18n.notSpecified || 'Ikke angivet';
+      const desc = formData.get('description');
+
+      const subject = `${i18n.subject || 'Projekt Planner'}: ${service} - ${name}`;
+      const body = `
+${i18n.intro || 'Projekt Planner - RNS APPS'}
+
+${i18n.serviceLabel || '1. YDELSE'}
+   Ydelse: ${service}
+
+${i18n.scopeLabel || '2. PROJEKTRAMME'}
+   ${i18n.scopeValue || 'Estimeret omfang'}: ${scope}
+   ${i18n.budgetValue || 'Investeringsramme'}: ${budget} DKK
+
+${i18n.timelineLabel || '3. TIDSHORISONT'}
+   ${i18n.timelineValue || 'Ønsket tidsramme'}: ${timeline}
+
+${i18n.contactLabel || '4. KONTAKTINFORMATION'}
+   ${i18n.contactName || 'Navn'}: ${name}
+   ${i18n.contactEmail || 'Email'}: ${email}
+   ${i18n.contactPhone || 'Telefon'}: ${phone}
+   ${i18n.contactCompany || 'Virksomhed'}: ${company}
+
+${i18n.descLabel || '5. BESKRIVELSE'}
+   ${desc}
+`;
+
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+
+    updateStepUI();
+  }
+
+  // Run on initial load and after Astro View Transitions
+  initProjectPlanner();
+  document.addEventListener('astro:after-swap', initProjectPlanner);
+</script>
