@@ -36,12 +36,12 @@ const description = locale === 'en'
     <AboutSection />
   </div>
 
-  <section class="cinematic-station cinematic-contact" id="kontakt" data-cinematic-station>
+  <section class="cinematic-station cinematic-contact reveal-trigger" id="kontakt" data-cinematic-station>
     <div class="cinematic-contact__finale">
-      <p>{finale.label}</p>
-      <h2>{finale.headline}</h2>
+      <p class="reveal-slide-left">{finale.label}</p>
+      <h2 class="reveal-blur-3d delay-100">{finale.headline}</h2>
     </div>
-    <div class="cinematic-contact__inner">
+    <div class="cinematic-contact__inner reveal-blur-3d delay-200">
       <div class="cinematic-contact__planner-header">
         <h3>{contactSection.title}</h3>
         <p>{contactSection.description}</p>

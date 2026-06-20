@@ -6,19 +6,19 @@ const t = useTranslations(locale);
 const { about } = t;
 ---
 
-<section class="cinematic-station cinematic-about" id="om-os" data-cinematic-station>
+<section class="cinematic-station cinematic-about reveal-trigger" id="om-os" data-cinematic-station>
   <div class="cinematic-about__inner">
-    <p class="cinematic-about__label">{about.label}</p>
-    <h2 class="cinematic-about__headline">{about.headline}</h2>
-    <p class="cinematic-about__intro">{about.intro}</p>
+    <p class="cinematic-about__label reveal-slide-left">{about.label}</p>
+    <h2 class="cinematic-about__headline reveal-slide-left delay-100">{about.headline}</h2>
+    <p class="cinematic-about__intro reveal-slide-left delay-200">{about.intro}</p>
 
     <div class="cinematic-about__grid">
-      <div class="cinematic-about__philosophy">
+      <div class="cinematic-about__philosophy reveal-blur-3d delay-300">
         <h3>{about.philosophyTitle}</h3>
         <p>{about.philosophy}</p>
       </div>
 
-      <div class="cinematic-about__team">
+      <div class="cinematic-about__team reveal-blur-3d delay-400">
         <h3>{about.teamTitle}</h3>
         <div class="cinematic-about__members">
           {about.team.map((member) => (

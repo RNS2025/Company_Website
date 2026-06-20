@@ -17,13 +17,13 @@ const translatedProjects = projects.map((project, index) => ({
 }));
 ---
 
-<section class="cinematic-station cinematic-projects" id="projekter" data-cinematic-station>
+<section class="cinematic-station cinematic-projects reveal-trigger" id="projekter" data-cinematic-station>
   <div class="cinematic-projects__inner">
-    <p class="cinematic-projects__label">{featuredWork.label}</p>
-    <h2 class="cinematic-projects__headline">{featuredWork.headline}</h2>
-    {featuredWork.intro && <p class="cinematic-projects__intro">{featuredWork.intro}</p>}
+    <p class="cinematic-projects__label reveal-slide-left">{featuredWork.label}</p>
+    <h2 class="cinematic-projects__headline reveal-slide-left delay-100">{featuredWork.headline}</h2>
+    {featuredWork.intro && <p class="cinematic-projects__intro reveal-slide-left delay-200">{featuredWork.intro}</p>}
 
-    <div class="cinematic-carousel" data-carousel>
+    <div class="cinematic-carousel reveal-clip delay-300" data-carousel>
       <button
         type="button"
         class="cinematic-carousel__nav cinematic-carousel__nav--prev"

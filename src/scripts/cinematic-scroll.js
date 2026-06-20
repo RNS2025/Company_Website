@@ -109,6 +109,37 @@ function initSectionSnap() {
   });
 }
 
+function initSectionReveal() {
+  const triggers = document.querySelectorAll('.reveal-trigger');
+  if (!triggers.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          // Optional: If we want to only animate in once, we can unobserve
+          // observer.unobserve(entry.target);
+        } else {
+          // If we want it to animate out when scrolling past
+          entry.target.classList.remove('is-revealed');
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: '0px 0px -15% 0px', // Trigger slightly before it hits the bottom
+      threshold: 0.05,
+    }
+  );
+
+  triggers.forEach((trigger) => observer.observe(trigger));
+
+  teardown.push(() => {
+    observer.disconnect();
+  });
+}
+
 function boot() {
   teardown.forEach((fn) => fn());
   teardown = [];
@@ -117,6 +148,7 @@ function boot() {
   initProgressBar();
   initHeroFade();
   initSectionSnap();
+  initSectionReveal();
 }
 
 function shutdown() {

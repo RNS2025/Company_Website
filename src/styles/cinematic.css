@@ -996,3 +996,82 @@ html.cinematic-page body::before {
     transform: none;
   }
 }
+
+/* ============================================================
+   Creative Cinematic Scroll Transitions
+   ============================================================ */
+
+/* Base transition parameters */
+.reveal-blur-3d, .reveal-slide-left, .reveal-slide-right, .reveal-clip {
+  will-change: transform, opacity, filter, clip-path;
+  transition: all 1s cubic-bezier(0.17, 0.88, 0.32, 1.2); /* Elastic bounce */
+}
+
+/* 1. Blur & 3D Tilt Bounce */
+.reveal-blur-3d {
+  opacity: 0;
+  filter: blur(12px);
+  transform: perspective(1000px) rotateX(-15deg) translateY(40px) scale(0.95);
+}
+.is-revealed .reveal-blur-3d {
+  opacity: 1;
+  filter: blur(0);
+  transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1);
+}
+
+/* 2. Directional Slides */
+.reveal-slide-left {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateX(-40px) scaleX(1.05);
+}
+.is-revealed .reveal-slide-left {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0) scaleX(1);
+}
+
+.reveal-slide-right {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateX(40px) scaleX(1.05);
+}
+.is-revealed .reveal-slide-right {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0) scaleX(1);
+}
+
+/* 3. Curtain Clip-Path Reveal */
+.reveal-clip {
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transform: translateY(20px);
+  transition: clip-path 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
+              transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.8s ease;
+}
+.is-revealed .reveal-clip {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+  transform: translateY(0);
+}
+
+/* Stagger Delays */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-blur-3d, .reveal-slide-left, .reveal-slide-right, .reveal-clip {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+  }
+}
+
