@@ -1,8 +1,7 @@
 ---
 import CinematicLayout from '../layouts/CinematicLayout.astro';
 import CinematicNav from '../components/cinematic/CinematicNav.astro';
-import ScrollVideoBackground from '../components/cinematic/ScrollVideoBackground.astro';
-import ParticleField from '../components/cinematic/ParticleField.astro';
+import InteractiveField from '../components/cinematic/InteractiveField.astro';
 import HeroCinematic from '../components/cinematic/HeroCinematic.astro';
 import ServicesSection from '../components/cinematic/ServicesSection.astro';
 import ProjectsCarousel from '../components/cinematic/ProjectsCarousel.astro';
@@ -27,8 +26,7 @@ const description = locale === 'en'
 >
   <div id="scroll-progress" aria-hidden="true"></div>
 
-  <ScrollVideoBackground />
-  <ParticleField />
+  <InteractiveField />
   <CinematicNav />
 
   <div id="content">

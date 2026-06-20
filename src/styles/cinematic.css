@@ -26,16 +26,16 @@
 
 :root {
   color-scheme: dark;
-  --cinematic-bg: #0e0d0c;
-  --cinematic-void: #1a1816;
-  --cinematic-fg: #eae9e9;
+  --cinematic-bg: #0a0a0a;
+  --cinematic-void: #0a0a0a;
+  --cinematic-fg: #ffffff;
   --cinematic-muted: #d1d5db;
   --cinematic-accent: #ff6941;
   --cinematic-accent-hover: #f2865f;
   --cinematic-border: rgba(55, 65, 81, 0.5);
-  --font-display: 'Instrument Sans', system-ui, sans-serif;
-  --font-body: 'JUSTSans', system-ui, sans-serif;
-  --font-brand: 'Geszog', system-ui, sans-serif;
+  --font-display: 'Public Sans', system-ui, sans-serif;
+  --font-body: 'Public Sans', system-ui, sans-serif;
+  --font-brand: 'Public Sans', system-ui, sans-serif;
 }
 
 html.cinematic-page {
@@ -408,12 +408,7 @@ html.cinematic-page body {
   display: flex;
   align-items: center;
   padding: 6rem 1.5rem 4rem;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    var(--cinematic-void) 12%,
-    var(--cinematic-bg) 100%
-  );
+  background: transparent;
 }
 .cinematic-services__inner {
   max-width: 72rem;
@@ -512,7 +507,7 @@ html.cinematic-page body {
   display: flex;
   align-items: center;
   padding: 5rem 1.5rem 4rem;
-  background: var(--cinematic-bg);
+  background: transparent;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 .cinematic-projects__inner {
@@ -611,7 +606,7 @@ html.cinematic-page body {
   display: flex;
   align-items: center;
   padding: 5rem 1.5rem 4rem;
-  background: linear-gradient(180deg, var(--cinematic-bg) 0%, var(--cinematic-void) 100%);
+  background: transparent;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 .cinematic-about__inner {
@@ -685,7 +680,7 @@ html.cinematic-page body {
 .cinematic-contact {
   position: relative;
   z-index: 2;
-  background: var(--cinematic-void);
+  background: transparent;
   padding: 5rem 1.5rem 6rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: inset 0 1px 0 rgba(255, 105, 65, 0.08);

@@ -101,87 +101,13 @@ function initMagnetButtons() {
   });
 }
 
-// 4. Custom Brand Cursor
-function initCustomCursor() {
-  // Disable custom cursor on touch devices
-  if (window.matchMedia('(pointer: coarse)').matches) return;
-  
-  // Clean up any existing cursor elements
-  const existingCursor = document.querySelectorAll('.custom-cursor-dot, .custom-cursor-ring');
-  existingCursor.forEach(c => c.remove());
 
-  const dot = document.createElement('div');
-  const ring = document.createElement('div');
-  
-  dot.className = 'custom-cursor-dot';
-  ring.className = 'custom-cursor-ring';
-  
-  document.body.appendChild(dot);
-  document.body.appendChild(ring);
-  
-  let mouse = { x: 0, y: 0 };
-  let dotPos = { x: 0, y: 0 };
-  let ringPos = { x: 0, y: 0 };
-  
-  const onMouseMove = (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  };
-  
-  window.addEventListener('mousemove', onMouseMove, { passive: true });
-  teardownList.push(() => window.removeEventListener('mousemove', onMouseMove));
-  
-  let isHovering = false;
-  
-  const addHoverState = () => {
-    isHovering = true;
-    ring.classList.add('custom-cursor-ring--hover');
-    dot.classList.add('custom-cursor-dot--hover');
-  };
-  
-  const removeHoverState = () => {
-    isHovering = false;
-    ring.classList.remove('custom-cursor-ring--hover');
-    dot.classList.remove('custom-cursor-dot--hover');
-  };
-  
-  const hoverElements = document.querySelectorAll('a, button, input, textarea, select, .cursor-pointer');
-  hoverElements.forEach(el => {
-    el.addEventListener('mouseenter', addHoverState, { passive: true });
-    el.addEventListener('mouseleave', removeHoverState, { passive: true });
-    
-    teardownList.push(() => {
-      el.removeEventListener('mouseenter', addHoverState);
-      el.removeEventListener('mouseleave', removeHoverState);
-    });
-  });
-  
-  let rafId = 0;
-  
-  function tick() {
-    // Lerp dot
-    dotPos.x += (mouse.x - dotPos.x) * 0.35;
-    dotPos.y += (mouse.y - dotPos.y) * 0.35;
-    dot.style.transform = `translate3d(${dotPos.x}px, ${dotPos.y}px, 0)`;
-    
-    // Lerp ring (slower for trailing effect)
-    ringPos.x += (mouse.x - ringPos.x) * 0.16;
-    ringPos.y += (mouse.y - ringPos.y) * 0.16;
-    ring.style.transform = `translate3d(${ringPos.x}px, ${ringPos.y}px, 0)`;
-    
-    rafId = requestAnimationFrame(tick);
-  }
-  
-  rafId = requestAnimationFrame(tick);
-  teardownList.push(() => cancelAnimationFrame(rafId));
-}
 
 function bootInteractions() {
   teardown();
   initCardTilt();
   initGlowBorders();
   initMagnetButtons();
-  initCustomCursor();
 }
 
 function teardown() {

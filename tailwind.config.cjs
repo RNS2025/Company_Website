@@ -4,7 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        background: '#0a0a0a',
+        surface: '#121212',
+        'surface-variant': '#1e1e1e',
+        outline: '#333333',
         primary: {
+          DEFAULT: '#8b5cf6',
           50: '#FFF5F2',
           100: '#FFE8E0',
           200: '#FFD1C2',
@@ -21,7 +26,6 @@ module.exports = {
           lighter: '#3b3b3b',  // Kort
           border: '#4a4a4a',   // Kanter
         },
-        // ── Brandpalette ─────────────────────────────────
         brand: {
           lightest: '#F2F2F3',
           light:    '#EAE9E9',
@@ -33,6 +37,12 @@ module.exports = {
         accent: {
           teal: '#314245',
         }
+      },
+      fontFamily: {
+        headline: ["Public Sans", "sans-serif"],
+        display: ["Public Sans", "sans-serif"],
+        body: ["Public Sans", "sans-serif"],
+        label: ["Public Sans", "sans-serif"]
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in-out',

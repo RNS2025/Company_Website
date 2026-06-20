@@ -1,6 +1,6 @@
 ---
 import CinematicLayout from "../layouts/CinematicLayout.astro";
-import VideoBackground from "../components/ui/VideoBackground.astro";
+import InteractiveField from "../components/cinematic/InteractiveField.astro";
 import FadeIn from "../components/animations/FadeIn.astro";
 import Card from "../components/ui/Card.astro";
 import { AlertCircle } from "lucide-astro";
@@ -8,7 +8,7 @@ import { AlertCircle } from "lucide-astro";
 
 <CinematicLayout title="404 - Not Found" noindex={true}>
   <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <VideoBackground src="/video/abstract-tech.mp4" overlay="heavy" class="opacity-15" />
+    <InteractiveField />
 
     <div class="relative z-10 container mx-auto px-6 text-center">
       <FadeIn>

@@ -115,52 +115,6 @@ const organizationSchema = {
 </html>
 
 <style is:global>
-  /* Custom Cursor styles */
-  .custom-cursor-dot {
-    width: 6px;
-    height: 6px;
-    background-color: #ff6941;
-    border-radius: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate3d(-3px, -3px, 0);
-    transition: width 0.2s, height 0.2s, background-color 0.2s;
-  }
-  .custom-cursor-ring {
-    width: 30px;
-    height: 30px;
-    border: 1.5px solid rgba(255, 105, 65, 0.4);
-    border-radius: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate3d(-15px, -15px, 0);
-    transition: width 0.25s, height 0.25s, border-color 0.2s, background-color 0.2s;
-  }
-  .custom-cursor-ring--hover {
-    width: 46px;
-    height: 46px;
-    background-color: rgba(255, 105, 65, 0.08);
-    border-color: rgba(255, 105, 65, 0.75);
-  }
-  .custom-cursor-dot--hover {
-    width: 4px;
-    height: 4px;
-    background-color: #f2865f;
-  }
-  /* Hide standard cursor on desktop devices with fine pointer */
-  @media (pointer: fine) {
-    html.cinematic-page,
-    html.cinematic-page * {
-      cursor: none !important;
-    }
-  }
-
   /* Glow Cards CSS Helper Variables */
   .cinematic-project-card, .card, .service-tile, .pill-btn, .row-btn {
     position: relative;
